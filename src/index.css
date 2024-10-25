@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    @apply bg-main text-white
+}
+
+.btn {
+    @apply bg-red-700 py-2 font-bold
+}

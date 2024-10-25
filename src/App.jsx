@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Route, BrowserRouter, Routes } from 'react-router-dom'
-import PrivateRoute from './components/PrivateRoute.js/PrivateRoute'
+// import PrivateRoute from './components/PrivateRoute.js/PrivateRoute'
 import NotFound from './components/NotFound/Notfound'
 import MainPage from './pages/MainPage/MainPage'
 import SignUpPage from './pages/SignUpPage/SignUp'
