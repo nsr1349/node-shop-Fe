@@ -1,6 +1,6 @@
 import api from "./api";
 
-const LoginApi = async (email, password) => {
+const LoginApi = async ({ email, password }) => {
     try {
         return await api.post("/user/login", { email, password })
     } catch (error) {
