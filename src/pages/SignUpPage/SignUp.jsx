@@ -2,19 +2,20 @@ import { Link , useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { createUserApi } from "../../utils/api/userApi";
 import { useState } from "react";
+import generateNickname from "../../utils/fn/generateNickname";
 
 const signUpInputs = [
     {
         label : '닉네임',
         id : 'name',
         type : 'text',
-        validationText : '(한글 혹은 영어)'
+        validationText : '(한글 혹은 영어)',
+        value : generateNickname()
     },
     {
         label : '이메일',
         id : 'email',
         type : 'text',
-        validationText : ''
     },
     {
         label : '비밀번호',
@@ -26,7 +27,6 @@ const signUpInputs = [
         label : '비밀번호 재입력',
         id : 'password2',
         type : 'password',
-        validationText : ''
     },
 ]
 
@@ -53,9 +53,9 @@ const SignUpPage = () => {
             <h1 className="text-center text-2xl font-bold mb-10">회원가입</h1>
             <form onSubmit={handleSubmit(handleOnSubmit)}>
                 {
-                    signUpInputs.map(({label, type, id, validationText})=> <div key={id} className="flex flex-col">
+                    signUpInputs.map(({label, type, id, validationText, value})=> <div key={id} className="flex flex-col">
                         <label htmlFor="name">{label} <span className="text-g text-sm">{validationText}</span></label>
-                        <input type={type} className="mb-4 mt-2" required {...register(id)}/>
+                        <input type={type} className="mb-4 mt-2" required value={value} {...register(id)}/>
                     </div>)
                 }
                 {err && <span className="text-red-800 text-sm">{err}</span>}
