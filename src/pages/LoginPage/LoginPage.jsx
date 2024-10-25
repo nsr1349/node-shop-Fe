@@ -47,7 +47,7 @@ const LoginPage = () => {
                 {err && <span className="mb-4 text-red-800 text-sm">{err}</span>}
                 <button type="submit" className="btn w-full">로그인</button>
             </form>
-            <Link to='/login' className="text-g mt-4">회원가입</Link>
+            <Link to='/signUp' className="text-g mt-4">회원가입</Link>
         </div>
     </>
 }
