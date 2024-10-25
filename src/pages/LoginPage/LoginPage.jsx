@@ -44,8 +44,8 @@ const LoginPage = () => {
                         <input type={type} className="mb-4 mt-2" required {...register(id)}/>
                     </div>)
                 }
-                {err && <span className="mb-4 text-red-800 text-sm">{err}</span>}
-                <button type="submit" className="btn w-full">로그인</button>
+                {err && <span className="text-red-800 text-sm">{err}</span>}
+                <button type="submit" className="btn w-full mt-4">로그인</button>
             </form>
             <Link to='/signUp' className="text-g mt-4">회원가입</Link>
         </div>
