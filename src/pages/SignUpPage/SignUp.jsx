@@ -1,17 +1,67 @@
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { createUserApi } from "../../utils/api/userApi";
+import { useState } from "react";
+
+const signUpInputs = [
+    {
+        label : '닉네임',
+        id : 'name',
+        type : 'text',
+        validationText : '(한글 혹은 영어)'
+    },
+    {
+        label : '이메일',
+        id : 'email',
+        type : 'text',
+        validationText : ''
+    },
+    {
+        label : '비밀번호',
+        id : 'password',
+        type : 'password',
+        validationText : '(영어와 숫자 조합으로 8자리 이상)'
+    },
+    {
+        label : '비밀번호 재입력',
+        id : 'password2',
+        type : 'password',
+        validationText : ''
+    },
+]
 
 const SignUpPage = () => {
+    const { register, handleSubmit } = useForm();
+    const [ err , setErr ] = useState(null)
+    const navigate = useNavigate()
+
+    const handleOnSubmit = async ({ name , email, password, password2}) => {        
+        if (password !== password2) return setErr('비밀번호 두개가 서로 다릅니다')
+        const { status , err } = await createUserApi({name , email, password})
+
+        if (status === 200) {
+            setErr(null)
+            alert('회원가입 성공! 로그인 페이지로 갑니다')
+            navigate('/login')
+        }else {
+            setErr(err)
+        }
+    }
+
     return <>
         <div className="max-w-md mx-auto flex flex-col px-4 py-6 border-2 border-sub">
-            <h1 className="text-center text-2xl font-bold mb-6">회원가입</h1>
-            <form className="flex flex-col mb-4">
-                <label htmlFor="email">Email</label>
-                <input type="email" id="email" className="mb-4 mt-2 p-2 bg-transparent border-2 border-sub " />
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" className="mb-4 mt-2 p-2 bg-transparent border-2 border-sub"/>
-                <button type="submit" className="btn">회원가입</button>
+            <h1 className="text-center text-2xl font-bold mb-10">회원가입</h1>
+            <form onSubmit={handleSubmit(handleOnSubmit)}>
+                {
+                    signUpInputs.map(({label, type, id, validationText})=> <div key={id} className="flex flex-col">
+                        <label htmlFor="name">{label} <span className="text-g text-sm">{validationText}</span></label>
+                        <input type={type} className="mb-4 mt-2" required {...register(id)}/>
+                    </div>)
+                }
+                {err && <span className="mb-4 text-red-800 text-sm">{err}</span>}
+                <button type="submit" className="btn w-full">회원가입</button>
             </form>
-            <Link to='/login' className="text-g">로그인</Link>
+            <Link to='/login' className="text-g mt-4">로그인</Link>
         </div>
     </>
 }
