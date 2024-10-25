@@ -8,7 +8,7 @@ const LoginApi = async (email, password) => {
     }
 }
 
-const createUserApi = async ( name,email,password ) => {
+const createUserApi = async ({ name,email,password }) => {
     try {
         return await api.post("/user", { name, email, password })
     } catch (error) {
