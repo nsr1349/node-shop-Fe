@@ -4,7 +4,7 @@ function App() {
 
   return (
     <>
-      하이
+      <p className='text-red-400'>안녕</p>
     </>
   )
 }
