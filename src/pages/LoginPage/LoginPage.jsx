@@ -1,11 +1,11 @@
-import { Link  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useLogin } from "../../utils/query/user";
 
 const LoginPage = () => {
     const { register, handleSubmit } = useForm();
     const { mutate, error, isPending } = useLogin();
-
+    
     return <>
         <div className="max-w-md mx-auto  px-4 py-6 border-2 border-sub">
             <h1 className="text-center text-2xl font-bold mb-10">로그인</h1>

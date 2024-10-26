@@ -1,37 +1,48 @@
 import { FaUserAlt, FaShoppingBag, FaBox } from "react-icons/fa";
+import { RiLogoutBoxFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-
-const navItems = [
-    {
-        icon : <FaUserAlt/>,
-        to : '/login',
-        text : '로그인'
-    },
-    {
-        icon : <FaShoppingBag/>,
-        to : '/',
-        text : '쇼핑백'
-    },
-    {
-        icon : <FaBox/>,
-        to : '/',
-        text : '내 주문'
-    },
-]
+import { useState } from "react";
+import api from "../../utils/api/api";
 
 const MainPage = () => {
+    const [isLogin, setIsLogin] = useState(!!sessionStorage.getItem('token')) 
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('token')
+        api.defaults.headers["authorization"] = "Bearer "
+        setIsLogin(false)
+    }
+
     return <>
         <header className="flex justify-end p-4">
             <ul className="flex gap-2 ">
                 {
-                    navItems.map(({icon, to, text})=>                
-                        <li key={text}>
-                            <Link to={to} className="flex items-center gap-2 p-2 px-4 rounded-md border-2 border-sub text-sm">
-                                {icon}
-                                <h4>{text}</h4>
-                            </Link>
-                        </li>)
+                    isLogin ? 
+                    <li>
+                        <div className="flex items-center gap-2 p-2 px-4 rounded-md border-2 border-sub text-sm" onClick={()=>handleLogout()}>
+                            <RiLogoutBoxFill/>
+                            <h4>로그아웃</h4>
+                        </div>
+                    </li> : 
+                    <li>
+                        <Link to='/login' className="flex items-center gap-2 p-2 px-4 rounded-md border-2 border-sub text-sm">
+                            <FaUserAlt/>
+                            <h4>로그인</h4>
+                        </Link>
+                    </li> 
                 }
+                <li>
+                    <Link to='/' className="flex items-center gap-2 p-2 px-4 rounded-md border-2 border-sub text-sm">
+                        <FaShoppingBag/>
+                        <h4>쇼핑백</h4>
+                    </Link>
+                </li> 
+                <li>
+                    <Link to='/' className="flex items-center gap-2 p-2 px-4 rounded-md border-2 border-sub text-sm">
+                        <FaBox/>
+                        <h4>내 주문</h4>
+                    </Link>
+                </li> 
             </ul>
         </header>
         <main>
