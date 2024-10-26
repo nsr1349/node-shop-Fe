@@ -1,8 +1,7 @@
-import { Link , useNavigate } from "react-router-dom";
+import { Link  } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { createUserApi } from "../../utils/api/userApi";
-import { useState } from "react";
 import generateNickname from "../../utils/fn/generateNickname";
+import { useSignUp } from "../../utils/query/user";
 
 const signUpInputs = [
     {
@@ -32,38 +31,23 @@ const signUpInputs = [
 
 const SignUpPage = () => {
     const { register, handleSubmit } = useForm();
-    const [ err , setErr ] = useState(null)
-    const [ isPending , setIsPending ] = useState(false)
-    const navigate = useNavigate()
-
-    const handleOnSubmit = async ({ name , email, password, password2}) => {        
-        if (password !== password2) return setErr('비밀번호 두개가 서로 다릅니다')
-        setIsPending(true)
-        const { status , err } = await createUserApi({name , email, password})
-        setIsPending(false)
-        if (status === 200) {
-            setErr(null)
-            alert('회원가입 성공! 로그인 페이지로 갑니다')
-            navigate('/login')
-        }else {
-            setErr(err)
-        }
-    }
+    const { mutate, error, isPending } = useSignUp();
 
     return <>
         <div className="max-w-md mx-auto flex flex-col px-4 py-6 border-2 border-sub">
             <h1 className="text-center text-2xl font-bold mb-10">회원가입</h1>
-            <form onSubmit={handleSubmit(handleOnSubmit)}>
+            <form onSubmit={handleSubmit(mutate)}>
                 {
                     signUpInputs.map(({label, type, id, validationText, value})=> <div key={id} className="flex flex-col">
                         <label htmlFor="name">{label} <span className="text-g text-sm">{validationText}</span></label>
                         <input type={type} className="mb-4 mt-2" required defaultValue={value} {...register(id)}/>
                     </div>)
                 }
-                {err && <span className="text-red-800 text-sm">{err}</span>}
+                {error && <span className="text-red-800 text-sm">{error}</span>}
                 <button type="submit" className="btn w-full mt-4">
                     { isPending ? <div className="loader scale-50 mx-auto my-1"/> : '회원가입'}
-                </button>            </form>
+                </button>            
+            </form>
             <Link to='/login' className="text-g mt-4">로그인</Link>
         </div>
     </>

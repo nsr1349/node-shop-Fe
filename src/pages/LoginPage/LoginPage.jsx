@@ -4,7 +4,7 @@ import { useLogin } from "../../utils/query/user";
 
 const LoginPage = () => {
     const { register, handleSubmit } = useForm();
-    const { mutate, error, isPending, } = useLogin();
+    const { mutate, error, isPending } = useLogin();
 
     return <>
         <div className="max-w-md mx-auto  px-4 py-6 border-2 border-sub">
@@ -14,7 +14,7 @@ const LoginPage = () => {
                 <input type='text' className="mb-4 mt-2" required {...register('email')}/>
                 <label htmlFor="password">비밀번호</label>
                 <input type='password' className="mb-4 mt-2" required {...register('password')}/>
-                {error && <span className="text-red-800 text-sm">로그인에 실패하였습니다</span>}
+                {error && <span className="text-red-800 text-sm">{error}</span>}
                 <button type="submit" className="btn w-full mt-4">
                     { isPending ? <div className="loader scale-50 mx-auto my-1"/> : '로그인'}
                 </button>
