@@ -33,12 +33,14 @@ const signUpInputs = [
 const SignUpPage = () => {
     const { register, handleSubmit } = useForm();
     const [ err , setErr ] = useState(null)
+    const [ isPending , setIsPending ] = useState(false)
     const navigate = useNavigate()
 
     const handleOnSubmit = async ({ name , email, password, password2}) => {        
         if (password !== password2) return setErr('비밀번호 두개가 서로 다릅니다')
+        setIsPending(true)
         const { status , err } = await createUserApi({name , email, password})
-
+        setIsPending(false)
         if (status === 200) {
             setErr(null)
             alert('회원가입 성공! 로그인 페이지로 갑니다')
@@ -59,8 +61,9 @@ const SignUpPage = () => {
                     </div>)
                 }
                 {err && <span className="text-red-800 text-sm">{err}</span>}
-                <button type="submit" className="btn w-full mt-4">회원가입</button>
-            </form>
+                <button type="submit" className="btn w-full mt-4">
+                    { isPending ? <div className="loader scale-50 mx-auto my-1"/> : '회원가입'}
+                </button>            </form>
             <Link to='/login' className="text-g mt-4">로그인</Link>
         </div>
     </>
