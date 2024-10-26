@@ -55,7 +55,7 @@ const SignUpPage = () => {
                 {
                     signUpInputs.map(({label, type, id, validationText, value})=> <div key={id} className="flex flex-col">
                         <label htmlFor="name">{label} <span className="text-g text-sm">{validationText}</span></label>
-                        <input type={type} className="mb-4 mt-2" required value={value} {...register(id)}/>
+                        <input type={type} className="mb-4 mt-2" required defaultValue={value} {...register(id)}/>
                     </div>)
                 }
                 {err && <span className="text-red-800 text-sm">{err}</span>}
