@@ -1,6 +1,6 @@
-import { useMutation } from '@tanstack/react-query'
+import { useQuery, useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
-import { LoginApi,createUserApi } from '../api/userApi'
+import { LoginApi, createUserApi, getUserApi } from '../api/userApi'
 import { setToken } from '../fn/tokenManager';
 
 export const useLogin = () => {
@@ -25,8 +25,7 @@ export const useSignUp = () => {
     
     const signUpMutation = useMutation({
         mutationFn: createUserApi,
-        onSuccess: ({data}) => {
-            console.log(data)
+        onSuccess: () => {
             alert('가입 성공! 로그인페이지로 이동합니다')
             navigate('/login')
         },
@@ -36,4 +35,13 @@ export const useSignUp = () => {
     });
 
     return signUpMutation;
+};
+
+export const useGetUser = () => {
+    const getUserQuery = useQuery({
+        queryKey : ['user'],
+        queryFn : getUserApi,
+    })
+
+    return getUserQuery;
 };
