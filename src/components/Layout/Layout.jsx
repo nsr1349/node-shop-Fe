@@ -7,7 +7,7 @@ import { deleteToken } from "../../utils/fn/tokenManager";
 import { useGetUser } from "../../utils/query/user";
 import { useUserStore } from "../../utils/store/user";
 
-const Layout = () => {
+const Layout = ({children}) => {
     const queryClient = useQueryClient();
     const { data } = useGetUser(); 
     const { user , setUser } = useUserStore()
@@ -56,6 +56,7 @@ const Layout = () => {
             </ul>
         </header>
         <div>{user?.email}</div>
+        {children}
     </>
 }
 
