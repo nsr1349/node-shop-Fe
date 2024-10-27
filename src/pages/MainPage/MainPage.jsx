@@ -2,14 +2,13 @@ import { FaUserAlt, FaShoppingBag, FaBox } from "react-icons/fa";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import api from "../../utils/api/api";
+import { deleteToken } from "../../utils/fn/tokenManager";
 
 const MainPage = () => {
     const [isLogin, setIsLogin] = useState(!!sessionStorage.getItem('token')) 
 
     const handleLogout = () => {
-        sessionStorage.removeItem('token')
-        api.defaults.headers["authorization"] = "Bearer "
+        deleteToken()
         setIsLogin(false)
     }
 
