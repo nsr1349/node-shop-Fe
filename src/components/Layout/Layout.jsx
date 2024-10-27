@@ -54,6 +54,12 @@ const Layout = ({children}) => {
                         <h4>내 주문</h4>
                     </Link>
                 </li> 
+                <li>
+                    <Link to='/admin' className="flex items-center gap-2 p-2 px-4 rounded-md border-2 border-sub text-sm">
+                        <FaBox/>
+                        <h4>어드민</h4>
+                    </Link>
+                </li> 
             </ul>
         </header>
         
