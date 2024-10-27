@@ -1,6 +1,6 @@
 import api from "./api";
 
-const LoginApi = async ({ email, password }) => {
+export const LoginApi = async ({ email, password }) => {
     try {
         return await api.post("/user/login", { email, password })
     } catch ({err}) {
@@ -8,7 +8,7 @@ const LoginApi = async ({ email, password }) => {
     }
 }
 
-const createUserApi = async ({ name,email,password, password2}) => {
+export const createUserApi = async ({ name,email,password, password2}) => {
     try {
         if (password !== password2) return Promise.reject('비밀번호 두개가 서로 다릅니다');
         return await api.post("/user", { name, email, password })
@@ -17,12 +17,11 @@ const createUserApi = async ({ name,email,password, password2}) => {
     }
 }
 
-const getUserApi = async () => {
+export const getUserApi = async () => {
     try {
-        return await api.get('/user')
+        const { data } = await api.get('/user')
+        return data
     } catch (error) {
         return error
     }
 }
-
-export { LoginApi, createUserApi, getUserApi };
