@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useLogin } from "../../utils/query/user";
+import { useGetUser } from "../../utils/query/user";
+import { Navigate } from "react-router-dom";
 
 const LoginPage = () => {
     const { register, handleSubmit } = useForm();
-    const { mutate, error, isPending } = useLogin();
-    
+    const { mutate, error : loginErr, isPending } = useLogin();
+    const { data , isLoading } = useGetUser(); 
+
+    if (isLoading) return
+    if (data?.status === 'success') return <Navigate to='/'/>
+
     return <>
         <div className="max-w-md mx-auto  px-4 py-6 border-2 border-sub">
             <h1 className="text-center text-2xl font-bold mb-10">로그인</h1>
@@ -14,7 +20,7 @@ const LoginPage = () => {
                 <input type='text' className="mb-4 mt-2" required {...register('email')}/>
                 <label htmlFor="password">비밀번호</label>
                 <input type='password' className="mb-4 mt-2" required {...register('password')}/>
-                {error && <span className="text-red-800 text-sm">{error}</span>}
+                {loginErr && <span className="text-red-800 text-sm">{loginErr}</span>}
                 <button type="submit" className="btn w-full mt-4">
                     { isPending ? <div className="loader scale-50 mx-auto my-1"/> : '로그인'}
                 </button>
