@@ -24,6 +24,19 @@ input {
     animation: flash 0.5s ease-out infinite alternate;
 }
 
+.scale-up {
+    animation: scale-up 0.3s ease-out 
+}
+
+@keyframes scale-up {
+    0% {
+        scale: 85%;
+    }
+    100% {
+        scale: 100%;
+    }
+}
+
 @keyframes flash {
     0% {
         background-color: #FFF2;
