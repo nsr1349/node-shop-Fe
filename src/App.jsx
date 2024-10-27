@@ -5,6 +5,7 @@ import MainPage from './pages/MainPage/MainPage'
 import SignUpPage from './pages/SignUpPage/SignUp'
 import LoginPage from './pages/LoginPage/LoginPage'
 import CartPage from './pages/CartPage/CartPage'
+import AdminPage from './pages/adminPage/adminPage'
 import './App.css'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/login" element={<LoginPage />}/>
                     <Route path="/cart" element={<CartPage />}/>
                     <Route path="/signUp" element={<SignUpPage />}/>
+                    <Route path="/admin" element={<AdminPage />}/>
                     <Route path="*" element={<NotFound />}/>
                 </Routes>
             </BrowserRouter>
