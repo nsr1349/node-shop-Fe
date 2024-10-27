@@ -24,6 +24,7 @@ const Layout = ({children}) => {
     },[ data ])
 
     return <>
+        { user?.name && <div className="text-center bg-green-800 py-2">{`${user?.name}님으로 로그인 되었습니다`}</div>}
         <header className="flex justify-end p-4">
             <ul className="flex gap-2 ">
                 {
@@ -55,7 +56,7 @@ const Layout = ({children}) => {
                 </li> 
             </ul>
         </header>
-        <div>{user?.email}</div>
+        
         {children}
     </>
 }
