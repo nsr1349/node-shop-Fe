@@ -9,7 +9,7 @@ const LoginPage = () => {
     const { mutate, error : loginErr, isPending } = useLogin();
     const { data , isLoading } = useGetUser(); 
 
-    if (isLoading) return
+    if (isLoading) return <></>
     if (data?.status === 'success') return <Navigate to='/'/>
 
     return <>
