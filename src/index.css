@@ -2,6 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic|Nanum+Myeongjo&display=swap&subset=korean');
+* { font-family: "S-Core", sans-serif; }
+@font-face {
+	font-family: 'S-Core';
+	font-weight:100;
+	src: url('../font/S-CoreDream-1Thin.woff') format('woff');
+}
+@font-face {
+	font-family: 'S-Core';
+	font-weight:200;
+	src: url('../font/S-CoreDream-2ExtraLight.woff') format('woff');
+}
+@font-face {
+    font-family: 'S-Core';
+    font-weight:300;
+    src: url('../font/S-CoreDream-3Light.woff') format('woff');
+}
+@font-face {
+	font-family: 'S-Core';
+	font-weight:400;
+	src: url('../font/S-CoreDream-4Regular.woff') format('woff');
+}
+@font-face {
+	font-family: 'S-Core';
+	font-weight:500;
+	src: url('../font/S-CoreDream-5Medium.woff') format('woff');
+}
+@font-face {
+	font-family: 'S-Core';
+	font-weight:600;
+	src: url('../font/S-CoreDream-6Bold.woff') format('woff');
+}
+@font-face {
+	font-family: 'S-Core';
+	font-weight:700;
+	src: url('../font/S-CoreDream-7ExtraBold.woff') format('woff');
+}
+@font-face {
+	font-family: 'S-Core';
+	font-weight:800;
+	src: url('../font/S-CoreDream-8Heavy.woff') format('woff');
+}
+@font-face {
+	font-family: 'S-Core';
+	font-weight:900;
+	src: url('../font/S-CoreDream-9Black.woff') format('woff');
+}
+
+body {
+    font-family: 'S-Core', sans-serif;
+} */
+
 body {
     @apply bg-main text-white
 }
