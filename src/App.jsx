@@ -5,7 +5,7 @@ import MainPage from './pages/MainPage/MainPage'
 import SignUpPage from './pages/SignUpPage/SignUp'
 import LoginPage from './pages/LoginPage/LoginPage'
 import CartPage from './pages/CartPage/CartPage'
-import AdminPage from './pages/adminPage/adminPage'
+import AdminPage from './pages/AdminPage/AdminPage'
 import './App.css'
 
 function App() {
