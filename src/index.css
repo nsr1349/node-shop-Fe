@@ -14,6 +14,10 @@ input {
     @apply p-2 bg-transparent border-2 border-sub
 }
 
+option {
+    @apply bg-main
+}
+
 .loader {
     width: 16px;
     height: 16px;
@@ -26,6 +30,14 @@ input {
 
 .scale-up {
     animation: scale-up 0.3s ease-out 
+}
+
+.center {
+    @apply grid place-items-center
+}
+
+.b-test {
+    @apply border-2 border-red-100
 }
 
 @keyframes scale-up {
