@@ -30,7 +30,7 @@ export const useSignUp = () => {
             navigate('/login')
         },
         onError: (error) => {
-            console.error('Login error:', error);
+            console.error('SignUp error:', error);
         }
     });
 
