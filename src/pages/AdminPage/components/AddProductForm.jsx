@@ -57,7 +57,10 @@ const AddProductForm = () => {
                     <label htmlFor="" >price</label>
                     <input type="text" className="my-2" required {...register('price')}/>
                     <label htmlFor="" >active</label>
-                    <input type="text" className="my-2" required {...register('status')}/>
+                    <select className="my-2 bg-transparent border-2 border-sub py-2 px-2"  required {...register('status')}>
+                        <option value="active">active</option>
+                        <option value="disable ">disable</option>    
+                    </select>
                 </div>
             </div>
     
