@@ -81,8 +81,11 @@ const AddProductForm = () => {
                 stocks.map(({ qty } , i)=> <div key={i} className="flex gap-4">
                     <select className="bg-transparent border-2 border-sub p-2 text-xs" onChange={(e)=> handleSizeChange(e, i)}>
                         <option value={null}>옵션을 선택해주세요</option>
-                        <option value="xs">xs</option>
-                        <option value="xl">xl</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
                     </select>
                     <input type="number" defaultValue={qty} onChange={(e)=> handleStockValue(e ,i)}/>
                     <div className="bg-sub hover:bg-red-900 transition-all px-3 center" onClick={()=> setStocks(stocks.filter((_, index) => index !== i))}>
