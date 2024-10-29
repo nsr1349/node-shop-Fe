@@ -29,7 +29,7 @@ option {
 }
 
 .scale-up {
-    animation: scale-up 0.3s ease-out 
+    animation: scale-up 0.2s ease-out 
 }
 
 .center {
@@ -42,10 +42,8 @@ option {
 
 @keyframes scale-up {
     0% {
-        scale: 85%;
-    }
-    100% {
-        scale: 100%;
+        scale: 95%;
+        opacity: 0;
     }
 }
 
