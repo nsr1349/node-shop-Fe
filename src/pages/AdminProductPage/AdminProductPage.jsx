@@ -31,9 +31,9 @@ const AdminProductPage = () => {
                                         <div className="absolute bottom-0 bg-sub w-full text-center py-1">{sku}</div>
                                     </div>
                                     <div className="flex-grow p-4 pl-6 flex flex-col gap-2 text-lg">
-                                        <div className="flex gap-5 items-center">
+                                        <div className="flex gap-4 items-center">
                                             <h4 className="text-xl font-bold">{name}</h4>
-                                            <div className="text-xs font-bold bg-emerald-500 px-4 py-1 rounded-md">{status}</div>
+                                            <div className={`text-xs font-bold px-4 py-1 rounded-md ${status === 'active' ? 'bg-emerald-500' : 'bg-red-800'}`}>{status}</div>
                                         </div>
                                         <div className="flex-grow"/>
                                         <div className="flex gap-2 items-center">

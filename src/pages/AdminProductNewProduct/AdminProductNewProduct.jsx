@@ -64,7 +64,7 @@ const AdminProductNewProduct = () => {
                             <label htmlFor="" >active</label>
                             <select className="my-2 bg-transparent border-2 border-sub py-2 px-2"  required {...register('status')}>
                                 <option value="active">active</option>
-                                <option value="disable ">disable</option>    
+                                <option value="inactive">inactive</option>    
                             </select>
                         </div>
                     </div>
