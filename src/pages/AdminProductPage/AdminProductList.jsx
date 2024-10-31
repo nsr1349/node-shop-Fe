@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useGetProduct } from "../../utils/query/product";
 import AdminProductsFallback from "./AdminProductsFallback";
 import PageNationBar from "../../components/PageNationBar/PageNationBar";
+import React from "react";
 
 const AdminProductList = () => {
     const { state } = useLocation();
@@ -18,8 +19,8 @@ const AdminProductList = () => {
     return <>
             <ul className="my-4 flex flex-col gap-4">
             {
-                products.map(({image,name,price,sku,status,stock,_id})=><>
-                <li key={_id} className="flex">
+                products.map(({image,name,price,sku,status,stock,_id})=><React.Fragment key={_id}>
+                <li className="flex">
                     <div className="relative">
                         <img className="h-44 w-32 object-cover" src={image} alt="" />
                         <div className="absolute bottom-0 bg-sub w-full text-center py-1">{sku}</div>
@@ -47,7 +48,7 @@ const AdminProductList = () => {
                     </div>
                     </li>
                     <hr className="w-full border-sub"/>
-                </>)
+                </React.Fragment>)
             }
             </ul>
             <PageNationBar page={page} totalPageNum={totalPageNum} state={{q}}/>
