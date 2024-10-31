@@ -1,6 +1,7 @@
 import PageNationBar from "../../components/PageNationBar/PageNationBar";
 import { useLocation } from "react-router-dom"; 
 import { useGetProduct } from "../../utils/query/product";
+import MainProductListFallback from "./MainProductListFallback";
 
 const MainProductList = () => {
     const { state } = useLocation();
@@ -8,7 +9,8 @@ const MainProductList = () => {
     const { data, isLoading  } = useGetProduct({page, q, size : 12, active : true})
     const { products, totalPageNum } = data?.data || {}
 
-    if (isLoading) return <>로딩중</>
+    if (isLoading) return <MainProductListFallback/>
+
     if (products?.length === 0) return <div className="center">결과없음</div>
 
     return <>
