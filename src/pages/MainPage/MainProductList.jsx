@@ -11,13 +11,13 @@ const MainProductList = () => {
 
     if (isLoading) return <MainProductListFallback/>
 
-    if (products?.length === 0) return <div className="center">결과없음</div>
+    if (products?.length === 0) return <div className="center mt-10">결과없음</div>
 
     return <>
         <div className={`my-6 gap-4 ${products.length < 4 ? 'flex flex-wrap' : 'custom-grid'} `}>
         {
-            products?.map(({image,name,price,_id})=> <div key={_id} className="border-b-2 border-sub max-w-[230px]">
-                <img src={image} alt="" className="h-[340px] w-full object-cover"/>
+            products?.map(({image,name,price,_id})=> <div key={_id} className="border-b-2 border-sub ">
+                <img src={image} alt="" className="h-[340px] object-cover"/>
                 <div className="py-3 px-2">
                     <div className="font-bold mb-2">{name}</div>
                     <div>{price} 원</div>

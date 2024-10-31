@@ -14,7 +14,7 @@ const AdminProductList = () => {
 
     if (isLoading) return <AdminProductsFallback/>
 
-    if (products?.length === 0) return <div className="center">결과없음</div>
+    if (products?.length === 0) return <div className="center mt-10">결과없음</div>
 
     return <>
             <ul className="my-4 flex flex-col gap-4">
