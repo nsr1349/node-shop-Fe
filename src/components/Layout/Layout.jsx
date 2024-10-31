@@ -25,7 +25,10 @@ const Layout = ({children}) => {
 
     return <>
         { user?.name && <div className="text-center bg-green-800 py-2">{`${user?.name}님으로 로그인 되었습니다`}</div>}
-        <header className="flex justify-end p-4">
+        <header className="flex justify-between p-4">
+            <Link to='/'>
+                <img src="/logo.png" alt="" className="w-10 h-10"/>
+            </Link>
             <ul className="flex gap-2 ">
                 {
                     user ? 
