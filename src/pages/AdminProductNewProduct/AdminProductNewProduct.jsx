@@ -11,19 +11,19 @@ const stockSizeOptions = ['XS', 'S', 'M' ,'L', 'XL']
 
 const AdminProductNewProduct = () => {
     const [ image, setImage ] = useState(null)
-    const [ categories, setCategories ] = useState([categorieOptions[0]])
+    const [ category, setCategory ] = useState([categorieOptions[0]])
     const [ stocks, setStocks ] = useState([{ size : null , qty : 0}])
     const { register, handleSubmit } = useForm();
     const { error, isPending, mutate } = useCreateProuct()
 
     const submit = (formData) => {
-        mutate({ formData, image, categories, stocks }) 
+        mutate({ formData, image, category, stocks }) 
     }   
 
     const handleAddCategorie = ({target}) => {
         const newValue = target.value;
-        if (categorieOptions.includes(newValue) && !categories.includes(newValue)) 
-            setCategories([...categories, newValue])
+        if (categorieOptions.includes(newValue) && !category.includes(newValue)) 
+            setCategory([...category, newValue])
     }
 
     const handleSizeChange = (e, index) => {
@@ -77,8 +77,8 @@ const AdminProductNewProduct = () => {
                     </div>
                     <div className="my-2 flex gap-2" >
                         {
-                            categories.length !== 0 && categories.map((option)=>              
-                            <div key={option} className="inline-flex gap-2 py-1 px-2 bg-sub rounded-md" onClick={()=> setCategories(categories.filter((el) => el !== option))}>
+                            category.length !== 0 && category.map((option)=>              
+                            <div key={option} className="inline-flex gap-2 py-1 px-2 bg-sub rounded-md" onClick={()=> setCategory(category.filter((el) => el !== option))}>
                                 <div>{option}</div>
                                 <button type="button" ><MdClose/></button>
                             </div>)
@@ -92,7 +92,7 @@ const AdminProductNewProduct = () => {
                                 { stockSizeOptions.map((size)=><option key={size} value={size}>{size}</option>) }
                             </select>
                             <input type="number" defaultValue={qty} onChange={(e)=> handleStockValue(e ,i)}/>
-                            <div className="bg-sub hover:bg-red-900 transition-all px-3 center" onClick={()=> setStocks(stocks.filter((_, index) => index !== i))}>
+                            <div className="bg-sub hover:bg-red-900 transition-all px-3 center" onClick={()=> stocks.length > 1 && setStocks(stocks.filter((_, index) => index !== i))}>
                                 <MdDelete size={20}/>
                             </div>
                         </div>)
