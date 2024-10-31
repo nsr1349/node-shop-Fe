@@ -1,6 +1,6 @@
 import api from "./api";
 
-export const createProductApi = async ({ formData, image, categories, stocks}) => {
+export const createProductApi = async ({ formData, image, category, stocks}) => {
     if (formData.price < 0) throw new Error('가격은 음수가 될 수 없습니다.')
     if (!image) throw new Error('이미지는 필수 값입니다.')
         
@@ -12,12 +12,12 @@ export const createProductApi = async ({ formData, image, categories, stocks}) =
     })
     const size = Object.keys(stock)
 
-    return await api.post("/product", { size , stock, image, categories, ...formData})
+    return await api.post("/product", { size , stock, image, category, ...formData})
 }
 
-export const getProductApi = async () => {
+export const getProductApi = async (query) => {
     try {
-        return await api.get("/product", )
+        return await api.get("/product", { params : { ...query }} )
     } catch (error) {
         return error
     }

@@ -9,7 +9,8 @@ export const useCreateProuct = () => {
     const queryClient = useQueryClient();
     const productMutation = useMutation({
         mutationFn: createProductApi,
-        onSuccess: () => {
+        onSuccess: (data) => {
+            console.log(data)
             navigate('/admin/product')
             toast.success('상품이 추가되었습니다.', {
                 position: "top-center",
@@ -27,10 +28,10 @@ export const useCreateProuct = () => {
     return productMutation;
 };
 
-export const useGetProduct = () => {
+export const useGetProduct = (query) => {
     const getUserQuery = useQuery({
-        queryKey : ['product'],
-        queryFn : getProductApi,
+        queryKey : ['product', query],
+        queryFn : () => getProductApi(query),
     })
 
     return getUserQuery;
