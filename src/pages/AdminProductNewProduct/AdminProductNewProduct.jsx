@@ -56,7 +56,7 @@ const AdminProductNewProduct = () => {
                         </div>
                         <div className="flex flex-col h-fit ">
                             <label htmlFor="" >SKU</label>
-                            <input type="text" className="my-2" required {...register('sku')}/>
+                            <input type="text" className="my-2" defaultValue={`sku0`} required {...register('sku')}/>
                             <label htmlFor="" >Name</label>
                             <input type="text" className="my-2" required {...register('name')}/>
                             <label htmlFor="" >price</label>
