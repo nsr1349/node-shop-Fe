@@ -29,7 +29,9 @@ const AdminLayout = () => {
 
     return <main className="flex">
         <aside className="h-screen sticky top-0 left-0 border-r-2 border-sub w-fit py-10 px-4">
-            <img src="/logo.png" alt="" className="w-24 mx-auto mb-6"/>
+            <Link to='/'>
+                <img src="/logo.png" alt="" className="w-24 mx-auto mb-6"/>
+            </Link> 
             <nav>
                 <ul>
                     {
