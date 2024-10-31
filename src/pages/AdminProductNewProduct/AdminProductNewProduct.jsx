@@ -42,7 +42,7 @@ const AdminProductNewProduct = () => {
 
     return <div className="fixed top-0 left-0 w-full h-full grid place-items-center z-40">
         <Link to={-1} className="w-full h-full bg-[rgba(0,0,0,0.5)]"/>
-        <div className={`fixed bg-main scale-up transition-all`} >
+        <div className='fixed bg-main scale-up transition-all max-h-[95%] overflow-y-scroll none-scrollbar' >
             <form className="" onSubmit={handleSubmit(submit)}>
                 <h2 className="p-6 py-4 border-b-2 border-sub font-bold text-lg">상품 추가</h2>
                 <div className="p-6 py-4 text-sm">
@@ -72,24 +72,30 @@ const AdminProductNewProduct = () => {
                     <div className="mt-4 flex gap-4 items-center">
                         <div>카테고리</div>
                         <select id="categories" className="bg-transparent border-2 border-sub p-2 text-xs" onChange={handleAddCategorie}>
-                            { categorieOptions.map((a)=> <option key={a} value={a}>{a}</option>)}
+                            { categorieOptions.map((a)=> <option disabled={category.find((b)=> console.log(a===b) )}  key={a} value={a}>{a}</option>)}
                         </select>
                     </div>
                     <div className="my-2 flex gap-2" >
                         {
                             category.length !== 0 && category.map((option)=>              
-                            <div key={option} className="inline-flex gap-2 py-1 px-2 bg-sub rounded-md" onClick={()=> setCategory(category.filter((el) => el !== option))}>
+                            <div key={option} className="inline-flex gap-2 py-1 px-2 bg-sub rounded-md">
                                 <div>{option}</div>
-                                <button type="button" ><MdClose/></button>
+                                <button type="button" onClick={()=> setCategory(category.filter((el) => el !== option))}><MdClose/></button>
                             </div>)
                         }
                     </div>
                     <div className="my-2 mt-6">상품재고</div>
                     {
-                        stocks.map(({ qty } , i)=> <div key={i} className="flex gap-4">
+                        stocks.map(({ qty } , i)=> <div key={i} className="flex gap-4 mt-1">
                             <select className="bg-transparent border-2 border-sub p-2 text-xs" onChange={(e)=> handleSizeChange(e, i)}>
                                 <option value={null}>옵션을 선택해주세요</option>
-                                { stockSizeOptions.map((size)=><option key={size} value={size}>{size}</option>) }
+                                { stockSizeOptions.map((size)=><option 
+                                    key={size} 
+                                    value={size}
+                                    disabled={stocks.some(({size : targetSize})=> targetSize === size)}
+                                >
+                                    {size}
+                                </option>) }
                             </select>
                             <input type="number" defaultValue={qty} onChange={(e)=> handleStockValue(e ,i)}/>
                             <div className="bg-sub hover:bg-red-900 transition-all px-3 center" onClick={()=> stocks.length > 1 && setStocks(stocks.filter((_, index) => index !== i))}>
@@ -97,9 +103,9 @@ const AdminProductNewProduct = () => {
                             </div>
                         </div>)
                     }
-                    <div type="submit" className="mt-2 py-2 bg-sub w-full center hover:bg-g transition-all" onClick={()=> setStocks([...stocks, { size : null , qty : 0}])}>
+                    <button type="button" className="mt-2 py-2 bg-sub w-full center hover:bg-g transition-all" onClick={()=> stockSizeOptions.length > stocks.length && setStocks([...stocks, { size : null , qty : 0}])}>
                         <MdAdd/>
-                    </div>
+                    </button>
                     <div className="my-2 mt-4">description</div>
                     <textarea className="p-2 w-full bg-transparent border-2 border-sub" required {...register('description')}/>
                     

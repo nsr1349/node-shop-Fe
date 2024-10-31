@@ -48,6 +48,13 @@ option {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
+.none-scrollbar{
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar{
+        display:none;
+    }
+}
+
 @keyframes scale-up {
     0% {
         scale: 95%;
