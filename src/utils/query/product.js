@@ -56,12 +56,14 @@ export const useUpdateProduct = () => {
 };
 
 export const useDeleteProduct = () => {
+    const navigate = useNavigate()
     const queryClient = useQueryClient()
     const UpdateProductQuery = useMutation({
         mutationFn : deleteProductApi,
         onSuccess: () => {
             toast.success('상품이 삭제되었습니다.', toastOption)
             queryClient.invalidateQueries({ queryKey: ['product'] });
+            navigate('/admin/product')
         },
     })
 
