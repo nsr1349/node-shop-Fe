@@ -1,8 +1,19 @@
 import { useQuery, useMutation } from '@tanstack/react-query'
-import { createProductApi, getProductApi } from '../api/product';
+import { createProductApi, getProductApi, updateProductApi } from '../api/product';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useQueryClient } from '@tanstack/react-query';
+
+const toastOption =  {
+    position: "top-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    theme: "dark",
+    transition: null,
+}
+
 
 export const useCreateProuct = () => {
     const navigate = useNavigate()
@@ -12,15 +23,7 @@ export const useCreateProuct = () => {
         onSuccess: (data) => {
             console.log(data)
             navigate('/admin/product')
-            toast.success('상품이 추가되었습니다.', {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                theme: "dark",
-                transition: null,
-            })
+            toast.success('상품이 추가되었습니다.', toastOption)
             queryClient.invalidateQueries({ queryKey: ['product'] });
         },
     });
@@ -29,10 +32,26 @@ export const useCreateProuct = () => {
 };
 
 export const useGetProduct = (query) => {
-    const getUserQuery = useQuery({
+    const getProductQuery = useQuery({
         queryKey : ['product', query],
         queryFn : () => getProductApi(query),
     })
 
-    return getUserQuery;
+    return getProductQuery;
+};
+
+export const useUpdateProduct = () => {
+    const navigate = useNavigate()
+    const queryClient = useQueryClient()
+    const UpdateProductQuery = useMutation({
+        mutationFn : updateProductApi,
+        onSuccess: (data) => {
+            console.log(data)
+            navigate('/admin/product')
+            toast.success('상품이 수정되었습니다.', toastOption)
+            queryClient.invalidateQueries({ queryKey: ['product'] });
+        },
+    })
+
+    return UpdateProductQuery;
 };
