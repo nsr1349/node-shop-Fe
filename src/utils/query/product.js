@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from '@tanstack/react-query'
-import { createProductApi, getProductApi, updateProductApi } from '../api/product';
+import { createProductApi, getProductApi, updateProductApi, deleteProductApi } from '../api/product';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useQueryClient } from '@tanstack/react-query';
@@ -45,10 +45,22 @@ export const useUpdateProduct = () => {
     const queryClient = useQueryClient()
     const UpdateProductQuery = useMutation({
         mutationFn : updateProductApi,
-        onSuccess: (data) => {
-            console.log(data)
+        onSuccess: () => {
             navigate('/admin/product')
             toast.success('상품이 수정되었습니다.', toastOption)
+            queryClient.invalidateQueries({ queryKey: ['product'] });
+        },
+    })
+
+    return UpdateProductQuery;
+};
+
+export const useDeleteProduct = () => {
+    const queryClient = useQueryClient()
+    const UpdateProductQuery = useMutation({
+        mutationFn : deleteProductApi,
+        onSuccess: () => {
+            toast.success('상품이 삭제되었습니다.', toastOption)
             queryClient.invalidateQueries({ queryKey: ['product'] });
         },
     })

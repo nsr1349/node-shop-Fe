@@ -5,16 +5,18 @@ import AdminProductsFallback from "./AdminProductsFallback";
 import PageNationBar from "../../components/PageNationBar/PageNationBar";
 import React from "react";
 
+
 const AdminProductList = () => {
     const { state } = useLocation();
     const { page = 1, q } = state || { page : 1 , q : undefined }
     const { data, isLoading  } = useGetProduct({page, q, size : 5})
-    const products = data?.data?.products
-    const totalPageNum = data?.data?.totalPageNum
+    const { products, totalPageNum } = data?.data || {}
+
 
     if (isLoading) return <AdminProductsFallback/>
 
     if (products?.length === 0) return <div className="center mt-10">결과없음</div>
+
 
     return <>
             <ul className="my-4 flex flex-col gap-4">
@@ -43,8 +45,8 @@ const AdminProductList = () => {
                         </div>
                     </div>
                     <div className="flex items-end gap-2 py-4">
-                        <Link to='manage' state={{image, name, price, sku, status, stock, _id , description, category }} className="bg-sub px-4 py-2 rounded-md hover:bg-g transition-all">UPDATE</Link>
-                        <Link className="bg-sub px-4 py-2 rounded-md hover:bg-red-800 transition-all">DELETE</Link>
+                        <Link to='manage' state={{image, name, price, sku, status, stock, _id , description, category, page, q }} className="bg-sub px-4 py-2 rounded-md hover:bg-g transition-all">UPDATE</Link>
+                        <Link to='delete' state={{ name, _id , page, q }} className="bg-sub px-4 py-2 rounded-md hover:bg-red-800 transition-all">DELETE</Link>
                     </div>
                     </li>
                     <hr className="w-full border-sub"/>

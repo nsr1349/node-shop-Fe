@@ -39,3 +39,12 @@ export const updateProductApi = async (formData) => {
         return error
     }
 }
+
+
+export const deleteProductApi = async (id) => {
+    try {
+        return await api.delete(`/product/${id}` )
+    } catch (error) {
+        return error
+    }
+}
