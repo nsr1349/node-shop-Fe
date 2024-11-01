@@ -10,7 +10,7 @@ const AdminProductPage = () => {
                 <div className="w-11/12 max-w-5xl mx-auto">
                     <SearchBar/>
                     <div className="py-2 text-end">
-                        <Link to='new-product'>
+                        <Link to='manage'>
                             <button className="mt-4 bg-sub py-2 px-4 rounded-md hover:bg-g transition-all">상품추가버튼</button>
                         </Link>
                     </div>

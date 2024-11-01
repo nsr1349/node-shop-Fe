@@ -8,7 +8,7 @@ import AdminLayout from './pages/AdminLayout/AdminLayout'
 import AdminAccountPage from './pages/AdminAccountPage/AdminAccountPage'
 import AdminProductPage from './pages/AdminProductPage/AdminProductPage'
 import AdminOrderPage from './pages/AdminOrderPage/AdminOrderPage'
-import AdminProductNewProduct from './pages/AdminProductNewProduct/AdminProductNewProduct'
+import AdminProductManagePage from './pages/AdminProductManagePage/AdminProductManagePage'
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
 import { ToastContainer } from 'react-toastify';
@@ -27,7 +27,7 @@ function App() {
                     <Route path="/admin" element={<AdminLayout />}>
                         <Route path="" element={<AdminAccountPage/>}/>
                         <Route path="product" element={<AdminProductPage/>}>
-                            <Route path="new-product" element={<AdminProductNewProduct/>}/>
+                            <Route path="manage" element={<AdminProductManagePage/>}/>
                         </Route>
                         <Route path="order" element={<AdminOrderPage/>}/> 
                     </Route>

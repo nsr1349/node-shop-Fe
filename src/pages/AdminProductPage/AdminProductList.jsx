@@ -1,5 +1,5 @@
 import { MdAutoAwesomeMosaic , MdPriceChange } from "react-icons/md";
-import { useLocation } from "react-router-dom"; 
+import { useLocation, Link } from "react-router-dom"; 
 import { useGetProduct } from "../../utils/query/product";
 import AdminProductsFallback from "./AdminProductsFallback";
 import PageNationBar from "../../components/PageNationBar/PageNationBar";
@@ -19,7 +19,7 @@ const AdminProductList = () => {
     return <>
             <ul className="my-4 flex flex-col gap-4">
             {
-                products.map(({image,name,price,sku,status,stock,_id})=><React.Fragment key={_id}>
+                products.map(({image,name,price,sku,status,stock,_id,description, category})=><React.Fragment key={_id}>
                 <li className="flex">
                     <div className="relative">
                         <img className="h-44 w-32 object-cover" src={image} alt="" />
@@ -43,8 +43,8 @@ const AdminProductList = () => {
                         </div>
                     </div>
                     <div className="flex items-end gap-2 py-4">
-                        <button className="bg-sub px-4 py-2 rounded-md hover:bg-g transition-all">UPDATE</button>
-                        <button className="bg-sub px-4 py-2 rounded-md hover:bg-red-800 transition-all">DELETE</button>
+                        <Link to='manage' state={{image, name, price, sku, status, stock, _id , description, category }} className="bg-sub px-4 py-2 rounded-md hover:bg-g transition-all">UPDATE</Link>
+                        <Link className="bg-sub px-4 py-2 rounded-md hover:bg-red-800 transition-all">DELETE</Link>
                     </div>
                     </li>
                     <hr className="w-full border-sub"/>

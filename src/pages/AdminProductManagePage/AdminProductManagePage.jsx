@@ -2,22 +2,40 @@ import { useState } from "react";
 import { MdDelete, MdAdd, MdClose  } from "react-icons/md";
 import CloudinaryUploadWidget from "../../components/CloudinaryUploadWidget/CloudinaryUploadWidget";
 import { useForm } from "react-hook-form";
-import { useCreateProuct } from "../../utils/query/product";
+import { useCreateProuct, useUpdateProduct } from "../../utils/query/product";
 import PendingButton from "../../components/PendingButton/PendingButton";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const categorieOptions = ['top', 'dress', 'bottom']
 const stockSizeOptions = ['XS', 'S', 'M' ,'L', 'XL']
+const initFormState = { 
+    sku : 'sku0', 
+    name : '',  
+    image : null ,
+    category : [categorieOptions[0]] ,
+    description : '', 
+    price : 0, 
+    stock : { XS : 0 } ,
+    status : 'active'
+}
 
-const AdminProductNewProduct = () => {
-    const [ image, setImage ] = useState(null)
-    const [ category, setCategory ] = useState([categorieOptions[0]])
-    const [ stocks, setStocks ] = useState([{ size : null , qty : 0}])
+const AdminProductManagePage = () => {
+    const { state } = useLocation();
+    const { sku , name, image : initImage, category : initCategory, description, price, stock, status, _id } = state || initFormState
+    const [ image, setImage ] = useState(initImage)
+    const [ category, setCategory ] = useState(initCategory)
+    const [ stocks, setStocks ] = useState(Object.entries(stock).map(([size, qty]) => ({ size, qty })))
     const { register, handleSubmit } = useForm();
-    const { error, isPending, mutate } = useCreateProuct()
+    const { error : createErr, isPending : isCreatePending, mutate : createMutate } = useCreateProuct()
+    const { error : updateErr, isPending : isUpdatePending, mutate : updateMutate } = useUpdateProduct()
 
     const submit = (formData) => {
-        mutate({ formData, image, category, stocks }) 
+    
+        if (_id){
+            updateMutate({_id, ...formData, image, category, stocks }) 
+        }else {
+            createMutate({ ...formData, image, category, stocks }) 
+        }
     }   
 
     const handleAddCategorie = ({target}) => {
@@ -56,13 +74,13 @@ const AdminProductNewProduct = () => {
                         </div>
                         <div className="flex flex-col h-fit ">
                             <label htmlFor="" >SKU</label>
-                            <input type="text" className="my-2" defaultValue={`sku0`} required {...register('sku')}/>
+                            <input type="text" className="my-2" defaultValue={sku} required {...register('sku')}/>
                             <label htmlFor="" >Name</label>
-                            <input type="text" className="my-2" required {...register('name')}/>
+                            <input type="text" className="my-2" defaultValue={name} required {...register('name')}/>
                             <label htmlFor="" >price</label>
-                            <input type="number" className="my-2" required {...register('price')}/>
+                            <input type="number" className="my-2" defaultValue={price} required {...register('price')}/>
                             <label htmlFor="" >active</label>
-                            <select className="my-2 bg-transparent border-2 border-sub py-2 px-2"  required {...register('status')}>
+                            <select className="my-2 bg-transparent border-2 border-sub py-2 px-2" defaultValue={status} required {...register('status')}>
                                 <option value="active">active</option>
                                 <option value="inactive">inactive</option>    
                             </select>
@@ -72,7 +90,7 @@ const AdminProductNewProduct = () => {
                     <div className="mt-4 flex gap-4 items-center">
                         <div>카테고리</div>
                         <select id="categories" className="bg-transparent border-2 border-sub p-2 text-xs" onChange={handleAddCategorie}>
-                            { categorieOptions.map((a)=> <option disabled={category.find((b)=> console.log(a===b) )}  key={a} value={a}>{a}</option>)}
+                            { categorieOptions.map((a)=> <option key={a} value={a}>{a}</option>)}
                         </select>
                     </div>
                     <div className="my-2 flex gap-2" >
@@ -86,8 +104,8 @@ const AdminProductNewProduct = () => {
                     </div>
                     <div className="my-2 mt-6">상품재고</div>
                     {
-                        stocks.map(({ qty } , i)=> <div key={i} className="flex gap-4 mt-1">
-                            <select className="bg-transparent border-2 border-sub p-2 text-xs" onChange={(e)=> handleSizeChange(e, i)}>
+                        stocks.map(({ size, qty } , i)=> <div key={i} className="flex gap-4 mt-1">
+                            <select className="bg-transparent border-2 border-sub p-2 text-xs" defaultValue={size} onChange={(e)=> handleSizeChange(e, i)}>
                                 <option value={null}>옵션을 선택해주세요</option>
                                 { stockSizeOptions.map((size)=><option 
                                     key={size} 
@@ -107,19 +125,16 @@ const AdminProductNewProduct = () => {
                         <MdAdd/>
                     </button>
                     <div className="my-2 mt-4">description</div>
-                    <textarea className="p-2 w-full bg-transparent border-2 border-sub" required {...register('description')}/>
+                    <textarea className="p-2 w-full bg-transparent border-2 border-sub" defaultValue={description} required {...register('description')}/>
                     
                     <div className="flex items-center justify-between">
-                        <div className="text-red-800">{error?.message}</div>
-                        <PendingButton isPending={isPending} className="my-2 px-6 py-2 bg-sub hover:bg-g transition-all">
-                            저장
-                        </PendingButton>
+                        <div className="text-red-800">{createErr?.message || updateErr?.message  }</div>
+                        <PendingButton isPending={isUpdatePending || isCreatePending} className="my-2 px-6 py-2 bg-sub hover:bg-g transition-all">{_id ? '업데이트' : '새로추가'}</PendingButton>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    
 }
 
-export default AdminProductNewProduct;
+export default AdminProductManagePage;
