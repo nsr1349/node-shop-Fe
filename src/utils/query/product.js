@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from '@tanstack/react-query'
-import { createProductApi, getProductApi, updateProductApi, deleteProductApi } from '../api/product';
+import { createProductApi, getProductApi, updateProductApi, deleteProductApi, getSingleProductApi } from '../api/product';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useQueryClient } from '@tanstack/react-query';
@@ -35,6 +35,15 @@ export const useGetProduct = (query) => {
     const getProductQuery = useQuery({
         queryKey : ['product', query],
         queryFn : () => getProductApi(query),
+    })
+
+    return getProductQuery;
+};
+
+export const useGetSingleProduct = (id) => {
+    const getProductQuery = useQuery({
+        queryKey : ['product', id],
+        queryFn :  ()=> getSingleProductApi(id),
     })
 
     return getProductQuery;
