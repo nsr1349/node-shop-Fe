@@ -12,17 +12,12 @@ const MainLayout = () => {
     const queryClient = useQueryClient();
     const { data } = useGetUser(); 
     const { user , setUser } = useUserStore()
-
+    console.log(data)
     const handleLogout = () => {
         deleteToken()
         setUser(null)
         queryClient.removeQueries({ queryKey: ['user'] })
     }
-
-    useEffect(()=> {
-        console.log(data)
-        if (data?.status === 'success') setUser(data.user)
-    },[ data ])
 
     return <>
         { user?.name && <div className="text-center bg-green-800 py-2">{`${user?.name}님으로 로그인 되었습니다`}</div>}
@@ -59,7 +54,7 @@ const MainLayout = () => {
                     </Link>
                 </li> 
                 {
-                    user?.level === 'admin' && 
+                    data?.user?.level === 'admin' && 
                     <li>
                         <Link to='/admin' className="flex items-center gap-2 btn px-4 rounded-md">
                             <FaBox/>

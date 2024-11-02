@@ -2,15 +2,18 @@ import { useQuery, useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { LoginApi, createUserApi, getUserApi } from '../api/userApi'
 import { setToken } from '../fn/tokenManager';
+import { useUserStore } from '../store/user';
 
 export const useLogin = () => {
     const navigate = useNavigate()
-    
+    const { setUser } = useUserStore()
     const loginMutation = useMutation({
         mutationFn: LoginApi,
         onSuccess: ({data}) => {
+            console.log(data)
             setToken(data.token)
             navigate('/')
+            setUser(data.user)
         },
         onError: (error) => {
             console.error('Login error:', error);
