@@ -13,6 +13,7 @@ export const useLogin = () => {
             setToken(data.token)
             navigate('/')
             queryClient.setQueryData(['user'], { user: data.user })
+            queryClient.invalidateQueries(['cart'])
         },
         onError: (error) => {
             console.error('Login error:', error);

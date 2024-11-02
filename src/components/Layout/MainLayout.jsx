@@ -44,7 +44,7 @@ const MainLayout = () => {
                 <li>
                     <Link to='/cart' className="flex items-center gap-2 btn px-4 rounded-md">
                         <FaShoppingBag/>
-                        <h4>쇼핑백 ({CartData?.items.length})</h4>
+                        <h4>쇼핑백 {CartData && `(${CartData?.items.length})`}</h4>
                     </Link>
                 </li> 
                 <li>
