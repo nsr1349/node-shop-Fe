@@ -2,7 +2,6 @@ import { FaUserAlt, FaShoppingBag, FaBox } from "react-icons/fa";
 import { RiLogoutBoxFill } from "react-icons/ri";
 import { Link, Outlet } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
 import { deleteToken } from "../../utils/fn/tokenManager";
 import { useGetUser } from "../../utils/query/user";
 import { useUserStore } from "../../utils/store/user";
@@ -12,7 +11,7 @@ const MainLayout = () => {
     const queryClient = useQueryClient();
     const { data } = useGetUser(); 
     const { user , setUser } = useUserStore()
-    console.log(data)
+
     const handleLogout = () => {
         deleteToken()
         setUser(null)
@@ -64,7 +63,6 @@ const MainLayout = () => {
                 }
             </ul>
         </header>
-        
         <Outlet/>
     </>
 }
