@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useLogin } from "../../utils/query/user";
 import { useGetUser } from "../../utils/query/user";
 import { Navigate } from "react-router-dom";
+import PendingButton from "../../components/PendingButton/PendingButton";
 
 const LoginPage = () => {
     const { register, handleSubmit } = useForm();
@@ -21,9 +22,7 @@ const LoginPage = () => {
                 <label htmlFor="password">비밀번호</label>
                 <input type='password' className="mb-4 mt-2" required {...register('password')}/>
                 {loginErr && <span className="text-red-800 text-sm">{loginErr}</span>}
-                <button type="submit" className="btn w-full mt-4">
-                    { isPending ? <div className="loader scale-50 mx-auto my-1"/> : '로그인'}
-                </button>
+                <PendingButton type="submit" isPending={isPending} className="w-full mt-4 btn-danger">로그인</PendingButton>
             </form>
             <Link to='/signUp' className="text-g">회원가입</Link>
         </div>

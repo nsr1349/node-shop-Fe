@@ -2,6 +2,7 @@ import { Link  } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import generateNickname from "../../utils/fn/generateNickname";
 import { useSignUp } from "../../utils/query/user";
+import PendingButton from "../../components/PendingButton/PendingButton";
 
 const signUpInputs = [
     {
@@ -44,9 +45,7 @@ const SignUpPage = () => {
                     </div>)
                 }
                 {error && <span className="text-red-800 text-sm">{error}</span>}
-                <button type="submit" className="btn w-full mt-4">
-                    { isPending ? <div className="loader scale-50 mx-auto my-1"/> : '회원가입'}
-                </button>            
+                <PendingButton type="submit" isPending={isPending} className="btn-danger w-full mt-4">회원가입</PendingButton>            
             </form>
             <Link to='/login' className="text-g mt-4">로그인</Link>
         </div>

@@ -6,16 +6,20 @@ body {
     @apply bg-main text-white
 }
 
-.btn {
-    @apply bg-red-700 py-2 px-4 font-bold
-}
-
 input {
     @apply p-2 bg-transparent border-2 border-sub
 }
 
 option {
     @apply bg-main
+}
+
+.btn {
+    @apply py-2 border-2 border-sub transition-all hover:bg-g cursor-pointer
+}
+
+.btn-danger {
+    @apply bg-red-700 hover:bg-red-900
 }
 
 .loader {
