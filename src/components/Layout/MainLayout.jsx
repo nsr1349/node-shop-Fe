@@ -1,26 +1,26 @@
 import { FaUserAlt, FaShoppingBag, FaBox } from "react-icons/fa";
 import { RiLogoutBoxFill } from "react-icons/ri";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { deleteToken } from "../../utils/fn/tokenManager";
 import { useGetUser } from "../../utils/query/user";
-import { useCartLenStore, useUserStore } from "../../utils/store/user";
-
+import { useGetCart } from "../../utils/query/cart";
 
 const MainLayout = () => {
     const queryClient = useQueryClient();
-    const { data } = useGetUser(); 
-    const { user , setUser } = useUserStore()
-    const { cartLen } = useCartLenStore()
-    
+    const { data : CartData } = useGetCart()
+    const { data : userData } = useGetUser(); 
+    const { user } = userData || {}
+    const navigate = useNavigate()
+
     const handleLogout = () => {
         deleteToken()
-        setUser(null)
         queryClient.removeQueries({ queryKey: ['user'] })
+        navigate('/')
     }
 
     return <>
-        { user?.name && <div className="text-center bg-green-800 py-2">{`${user?.name}님으로 로그인 되었습니다`}</div>}
+        { user && <div className="text-center bg-green-800 py-2">{`${user.name}님으로 로그인 되었습니다`}</div>}
         <header className="flex justify-between p-4">
             <Link to='/'>
                 <img src="/logo.png" alt="" className="w-10 h-10"/>
@@ -44,7 +44,7 @@ const MainLayout = () => {
                 <li>
                     <Link to='/cart' className="flex items-center gap-2 btn px-4 rounded-md">
                         <FaShoppingBag/>
-                        <h4>쇼핑백 ({cartLen})</h4>
+                        <h4>쇼핑백 ({CartData?.items.length})</h4>
                     </Link>
                 </li> 
                 <li>
@@ -54,7 +54,7 @@ const MainLayout = () => {
                     </Link>
                 </li> 
                 {
-                    data?.user?.level === 'admin' && 
+                    user?.level === 'admin' && 
                     <li>
                         <Link to='/admin' className="flex items-center gap-2 btn px-4 rounded-md">
                             <FaBox/>

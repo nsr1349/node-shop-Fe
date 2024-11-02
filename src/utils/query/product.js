@@ -3,17 +3,7 @@ import { createProductApi, getProductApi, updateProductApi, deleteProductApi, ge
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useQueryClient } from '@tanstack/react-query';
-
-const toastOption =  {
-    position: "top-center",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    theme: "dark",
-    transition: null,
-}
-
+import { toastOption } from '../../common/options';
 
 export const useCreateProuct = () => {
     const navigate = useNavigate()
@@ -43,7 +33,7 @@ export const useGetProduct = (query) => {
 export const useGetSingleProduct = (id) => {
     const getProductQuery = useQuery({
         queryKey : ['product', id],
-        queryFn :  ()=> getSingleProductApi(id),
+        queryFn : ()=> getSingleProductApi(id),
     })
 
     return getProductQuery;

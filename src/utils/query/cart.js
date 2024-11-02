@@ -1,19 +1,16 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify';
-import { addCartApi } from '../api/cart';
+import { addCartApi , getCartApi} from '../api/cart';
 import { toastOption } from '../../common/options';
-import { useCartLenStore } from '../store/user';
 
 export const useAddCart = () => {
-    const {setCartLen} = useCartLenStore()
+    const queryClient = useQueryClient();
     const addCartMutation = useMutation({
         mutationFn: addCartApi,
         onSuccess: ({data}) => {
-            
-            console.log('cart res' , data)
-            console.log('cart res' , data.cartLen)
-            setCartLen(data.cartLen)
+            console.log(data.cart.items)
             toast.success('카트에 상품이 담겼습니다', toastOption)
+            queryClient.setQueryData(['cart'], data.cart)
         },
         onError : ({message}) => {
             toast.error(message, toastOption)
@@ -21,3 +18,14 @@ export const useAddCart = () => {
     })
     return addCartMutation;
 }
+
+export const useGetCart = () => {
+    const getCartQuery = useQuery({
+        queryFn: getCartApi,
+        queryKey : ['cart'],
+    })
+    return getCartQuery;
+}
+
+
+
