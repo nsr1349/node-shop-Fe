@@ -15,9 +15,10 @@ import './App.css'
 import { ToastContainer } from 'react-toastify';
 import MainLayout from './components/Layout/MainLayout'
 import DetailPage from './pages/DetailPage/DetailPage'
+import { useGetUser } from './utils/query/user'
 
 function App() {
-
+    const { data } = useGetUser()
     return (
         <>
             <BrowserRouter>

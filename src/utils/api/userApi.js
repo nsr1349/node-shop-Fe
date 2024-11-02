@@ -18,6 +18,7 @@ export const createUserApi = async ({ name,email,password, password2}) => {
 }
 
 export const getUserApi = async () => {
+    if (!sessionStorage.getItem('token')) return
     try {
         const { data } = await api.get('/user')
         return data

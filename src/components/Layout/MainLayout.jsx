@@ -4,14 +4,15 @@ import { Link, Outlet } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { deleteToken } from "../../utils/fn/tokenManager";
 import { useGetUser } from "../../utils/query/user";
-import { useUserStore } from "../../utils/store/user";
+import { useCartLenStore, useUserStore } from "../../utils/store/user";
 
 
 const MainLayout = () => {
     const queryClient = useQueryClient();
     const { data } = useGetUser(); 
     const { user , setUser } = useUserStore()
-
+    const { cartLen } = useCartLenStore()
+    
     const handleLogout = () => {
         deleteToken()
         setUser(null)
@@ -43,7 +44,7 @@ const MainLayout = () => {
                 <li>
                     <Link to='/cart' className="flex items-center gap-2 btn px-4 rounded-md">
                         <FaShoppingBag/>
-                        <h4>쇼핑백</h4>
+                        <h4>쇼핑백 ({cartLen})</h4>
                     </Link>
                 </li> 
                 <li>

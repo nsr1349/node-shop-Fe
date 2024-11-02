@@ -5,31 +5,22 @@ import { useState } from "react";
 import { useGetUser } from "../../utils/query/user";
 import { useAddCart } from "../../utils/query/cart";
 import { toast } from "react-toastify";
+import { toastOption } from "../../common/options";
 
 const DetailPage = () => {
     const { id } = useParams()
     const { data: singleProductData , isPending} = useGetSingleProduct(id)
-    const { _id : productId, name, image, price, description , size, stock } = singleProductData?.product || {}
-    const { mutate, error } = useAddCart()
+    const { name, image, price, description , size, stock } = singleProductData?.product || {}
+    const { mutate } = useAddCart()
     const {data : userData} = useGetUser()
     const { user } = userData || {}
     const [ selectSize, setSelectSize ] = useState(null)
     const navigate = useNavigate()
-
-    console.log(user)
+    
     const handleAddCart = () => {
-        if (!user) navigate('/login')
-        if (selectSize === null) return toast.error('사이즈를 선택해주세요', {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            theme: "dark",
-            transition: null,
-        })
-        mutate({ productId , size : selectSize, qty : 1})
-        // 
+        if (!user) return navigate('/login')
+        if (selectSize === null) return toast.error('사이즈를 선택해주세요', toastOption)
+        mutate({ productId : id , size : selectSize, qty : 1})
     }
 
     if (isPending) return <>로딩중</>
@@ -57,7 +48,6 @@ const DetailPage = () => {
                         </li>)
                     }
                 </ul>
-                {error && error}
                 <PendingButton className="btn py-2 w-full" onClick={()=> handleAddCart()}>장바구니 추가</PendingButton>
             </div>
         </div>
