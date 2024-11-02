@@ -16,6 +16,7 @@ const MainLayout = () => {
     const handleLogout = () => {
         deleteToken()
         queryClient.removeQueries({ queryKey: ['user'] })
+        queryClient.removeQueries({ queryKey: ['cart'] })
         navigate('/')
     }
 
