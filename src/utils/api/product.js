@@ -1,5 +1,7 @@
 import api from "./api";
 
+const sizeOptions = ['XS', 'S', 'M' ,'L', 'XL']
+
 const productValidation = ({ sku , name, image, category, price, stocks }) => {
     if (!image) throw new Error('이미지는 필수 값입니다.')
     if (sku.length > 20) throw new Error('sku 가 너무 깁니다.')
@@ -14,8 +16,8 @@ const productValidation = ({ sku , name, image, category, price, stocks }) => {
         if (qty < 0) throw new Error('수량은 음수가 될 수 없습니다.')
         stock[size] = qty
     })
-        const size = Object.keys(stock)
-    return { stock , size}
+    const size = Object.keys(stock).sort((a, b) => sizeOptions.indexOf(a) - sizeOptions.indexOf(b));
+    return { stock , size } 
 }
 
 export const createProductApi = async (formData) => {
@@ -26,6 +28,15 @@ export const createProductApi = async (formData) => {
 export const getProductApi = async (query) => {
     try {
         return await api.get("/product", { params : { ...query }} )
+    } catch (error) {
+        return error
+    }
+}
+
+export const getSingleProductApi = async (id) => {
+    try {
+        const {data} = await api.get(`/product/${id}`)
+        return data
     } catch (error) {
         return error
     }
