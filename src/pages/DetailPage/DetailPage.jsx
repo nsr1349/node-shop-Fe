@@ -6,6 +6,7 @@ import { useGetUser } from "../../utils/query/user";
 import { useAddCart } from "../../utils/query/cart";
 import { toast } from "react-toastify";
 import { toastOption } from "../../common/options";
+import DetailPageFallback from "./DetailPageFallback";
 
 const DetailPage = () => {
     const { id } = useParams()
@@ -23,11 +24,11 @@ const DetailPage = () => {
         mutate({ productId : id , size : selectSize, qty : 1})
     }
 
-    if (isPending) return <>로딩중</>
+    if (isPending) return <DetailPageFallback/>
 
     return <>
-        <div className=" mx-auto max-w-[1000px] min-h-96 flex gap-4">
-            <div className="bg-red-950 h-96 min-w-96">
+        <div className=" mx-auto max-w-[1000px] min-h-96 flex gap-4 px-4">
+            <div className="h-96 min-w-96">
                 <img className="max-h-[600px]" src={image} alt="" />
             </div>
             <div className="p-4 flex flex-col flex-grow">
@@ -35,7 +36,7 @@ const DetailPage = () => {
                 <h4 className="text-3xl font-bold mt-2 mb-10">₩ {price}</h4>
                 <p className="flex-grow">{description}</p>
                 <div htmlFor="" className="mt-10 flex-grow">사이즈</div>
-                <ul className="flex gap-2 mt-2 mb-4">
+                <ul className="flex gap-2 mb-4">
                     {
                         size && size.map((a)=><li key={a}>
                             <button 
