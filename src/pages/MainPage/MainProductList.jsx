@@ -1,5 +1,5 @@
 import PageNationBar from "../../components/PageNationBar/PageNationBar";
-import { useLocation } from "react-router-dom"; 
+import { Link, useLocation } from "react-router-dom"; 
 import { useGetProduct } from "../../utils/query/product";
 import MainProductListFallback from "./MainProductListFallback";
 
@@ -14,17 +14,19 @@ const MainProductList = () => {
     if (products?.length === 0) return <div className="center mt-10">결과없음</div>
 
     return <>
-        <div className={`my-6 gap-4 ${products.length < 4 ? 'flex flex-wrap' : 'custom-grid'} `}>
+        <ul className={`my-6 gap-4 ${products.length < 4 ? 'flex flex-wrap' : 'custom-grid'} `}>
         {
-            products?.map(({image,name,price,_id})=> <div key={_id} className="border-b-2 border-sub ">
-                <img src={image} alt="" className="h-[340px] object-cover"/>
-                <div className="py-3 px-2">
-                    <div className="font-bold mb-2">{name}</div>
-                    <div>{price} 원</div>
-                </div>
-            </div>)
+            products?.map(({image,name,price,_id})=> <li key={_id}>
+                <Link to={`detail/${_id}`} className="border-b-2 border-sub ">
+                    <img src={image} alt="" className="h-[340px] object-cover"/>
+                    <div className="py-3 px-2">
+                        <div className="font-bold mb-2">{name}</div>
+                        <div>{price} 원</div>
+                    </div>
+                </Link>
+            </li> )
         }
-        </div>
+        </ul>
         <PageNationBar page={page} totalPageNum={totalPageNum} state={{q}}/>
     </>
 }

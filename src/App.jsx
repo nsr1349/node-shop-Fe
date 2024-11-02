@@ -13,6 +13,8 @@ import AdminProductDeletePage from './pages/AdminProductDeletePage/AdminProductD
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
 import { ToastContainer } from 'react-toastify';
+import MainLayout from './components/Layout/MainLayout'
+import DetailPage from './pages/DetailPage/DetailPage'
 
 function App() {
 
@@ -21,10 +23,13 @@ function App() {
             <BrowserRouter>
                 <ToastContainer />
                 <Routes>
-                    <Route path="/" element={<MainPage/>}/>
-                    <Route path="/login" element={<LoginPage />}/>
-                    <Route path="/cart" element={<CartPage />}/>
-                    <Route path="/signUp" element={<SignUpPage />}/>
+                    <Route path="/" element={<MainLayout />}>
+                        <Route path="/" element={<MainPage/>}/>
+                        <Route path="/detail/:id" element={<DetailPage/>}/>
+                        <Route path="/cart" element={<CartPage />}/>
+                        <Route path="/signUp" element={<SignUpPage />}/>
+                        <Route path="/login" element={<LoginPage />}/>
+                    </Route>
                     <Route path="/admin" element={<AdminLayout />}>
                         <Route path="" element={<AdminAccountPage/>}/>
                         <Route path="product" element={<AdminProductPage/>}>
