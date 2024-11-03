@@ -45,7 +45,7 @@ const SignUpPage = () => {
                     </div>)
                 }
                 {error && <span className="text-red-800 text-sm">{error}</span>}
-                <PendingButton type="submit" isPending={isPending} className="btn-danger w-full mt-4">회원가입</PendingButton>            
+                <PendingButton type="submit" isPending={isPending} className="btn-danger py-2 w-full mt-4">회원가입</PendingButton>            
             </form>
             <Link to='/login' className="text-g mt-4">로그인</Link>
         </div>

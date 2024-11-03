@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    @apply bg-main text-white
+    @apply bg-main text-white min-h-screen
 }
 
 input {
@@ -15,7 +15,7 @@ option {
 }
 
 .btn {
-    @apply py-2 border-2 border-sub transition-all hover:bg-g cursor-pointer
+    @apply border-2 border-sub transition-all hover:bg-g cursor-pointer
 }
 
 .btn-danger {

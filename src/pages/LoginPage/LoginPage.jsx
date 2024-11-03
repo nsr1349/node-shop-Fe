@@ -22,7 +22,7 @@ const LoginPage = () => {
                 <label htmlFor="password">비밀번호</label>
                 <input type='password' className="mb-4 mt-2" required {...register('password')}/>
                 {loginErr && <span className="text-red-800 text-sm">{loginErr}</span>}
-                <PendingButton type="submit" isPending={isPending} className="w-full mt-4 btn-danger">로그인</PendingButton>
+                <PendingButton type="submit" isPending={isPending} className="w-full py-2 mt-4 btn-danger">로그인</PendingButton>
             </form>
             <Link to='/signUp' className="text-g">회원가입</Link>
         </div>

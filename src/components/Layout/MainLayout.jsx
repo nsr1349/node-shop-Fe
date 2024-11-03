@@ -30,26 +30,26 @@ const MainLayout = () => {
                 {
                     user ? 
                     <li>
-                        <div className="flex items-center gap-2 btn px-4 rounded-md" onClick={()=>handleLogout()}>
+                        <div className="flex items-center gap-2 btn px-4 rounded-md py-2" onClick={()=>handleLogout()}>
                             <RiLogoutBoxFill/>
                             <h4>로그아웃</h4>
                         </div>
                     </li> : 
                     <li>
-                        <Link to='/login' className="flex items-center gap-2 btn px-4 rounded-md ">
+                        <Link to='/login' className="flex items-center gap-2 btn px-4 py-2 rounded-md ">
                             <FaUserAlt/>
                             <h4>로그인</h4>
                         </Link>
                     </li> 
                 }
                 <li>
-                    <Link to='/cart' className="flex items-center gap-2 btn px-4 rounded-md">
+                    <Link to='/cart' className="flex items-center gap-2 btn px-4 py-2 rounded-md">
                         <FaShoppingBag/>
                         <h4>쇼핑백 {CartData && `(${CartData?.items.length})`}</h4>
                     </Link>
                 </li> 
                 <li>
-                    <Link to='/' className="flex items-center gap-2 btn px-4 rounded-md">
+                    <Link to='/' className="flex items-center gap-2 btn px-4 py-2 rounded-md">
                         <FaBox/>
                         <h4>내 주문</h4>
                     </Link>
@@ -57,7 +57,7 @@ const MainLayout = () => {
                 {
                     user?.level === 'admin' && 
                     <li>
-                        <Link to='/admin' className="flex items-center gap-2 btn px-4 rounded-md">
+                        <Link to='/admin' className="flex items-center gap-2 btn px-4 py-2 rounded-md">
                             <FaBox/>
                             <h4>어드민</h4>
                         </Link>

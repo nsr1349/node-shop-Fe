@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify';
-import { addCartApi , getCartApi} from '../api/cart';
+import { addCartApi , getCartApi, editCartApi , deleteCartApi} from '../api/cart';
 import { toastOption } from '../../common/options';
 
 export const useAddCart = () => {
@@ -26,6 +26,34 @@ export const useGetCart = () => {
     })
     return getCartQuery;
 }
+/////
+export const useEditCart = () => {
+    // const queryClient = useQueryClient();
+    const addCartMutation = useMutation({
+        mutationFn: editCartApi,
+        onSuccess: (data) => {
+            console.log(data)
+            toast.success('카트가 수정되었습니다', toastOption)
+        },
+        onError : ({message}) => {
+            toast.error(message, toastOption)
+        },
+    })
+    return addCartMutation;
+}
 
 
+export const useDeleteCart = (id) => {
+    // const queryClient = useQueryClient();
+    const addCartMutation = useMutation({
+        mutationFn: ()=> deleteCartApi(id),
+        onSuccess: () => {
+            toast.success('카트에서 삭제되었습니다', toastOption)
+        },
+        onError : ({message}) => {
+            toast.error(message, toastOption)
+        },
+    })
+    return addCartMutation;
+}
 
