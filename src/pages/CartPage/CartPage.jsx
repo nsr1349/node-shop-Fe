@@ -4,7 +4,7 @@ import { useGetCart, useEditCart, useDeleteCart } from "../../utils/query/cart";
 import { useQueryClient } from "@tanstack/react-query";
 
 const CartPage = () => {
-    const { data , isLoading } = useGetCart()
+    const { data  } = useGetCart()
     const { mutate : editMutate } = useEditCart()
     const queryClient = useQueryClient(); 
     const { mutate : deleteMutate } = useDeleteCart()
@@ -33,7 +33,7 @@ const CartPage = () => {
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     {
                         data?.items && data?.items.map(({productId : { name , price, image}, size, qty, _id})=> <tr key={_id} className="border-b-2 border-sub">
                             <th className="flex my-6">
