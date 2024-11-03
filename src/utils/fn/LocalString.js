@@ -1,0 +1,1 @@
+export const localString = (num)=> num ? num.toLocaleString() : "N/A"

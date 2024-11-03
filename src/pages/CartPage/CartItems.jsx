@@ -3,7 +3,6 @@ import PendingButton from "../../components/PendingButton/PendingButton";
 import { useGetCart, useEditCart, useDeleteCart } from "../../utils/query/cart";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { localString } from "../../utils/fn/LocalString";
 
 const CartPage = () => {
     const { data, isLoading } = useGetCart()
@@ -14,8 +13,6 @@ const CartPage = () => {
 
     if (!isLoading && !data) return Navigate('/login')
 
-    if (isLoading) return  <>로딩중</>
-
     const handleEditCart = async (e, id) => {
         const newItems = data?.items.map(item => item._id === id ? { ...item, qty: e.target.value } : item)
         editMutate({items : newItems})
@@ -23,8 +20,6 @@ const CartPage = () => {
     }
     
     const handleDeleteCart = async (id) => deleteMutate(id)
-
-
 
     return <>
         <div className="flex gap-10 max-w-[1000px] mx-auto mt-10">
@@ -39,7 +34,7 @@ const CartPage = () => {
                                     <p className="text-g mt-1">SIZE : {size}</p>
                                 </div>
                             </div>
-                            <div>{(localString(price))} 원</div>
+                            <div>{price.typeOf(Number) && (price).toLocaleString()} 원</div>
                             <div className="px-4">
                                 <select type="text" className="bg-transparent btn p-2 rounded-md" defaultValue={qty} onChange={(e)=>handleEditCart(e,_id)}>
                                     <option value="1">1</option>
@@ -68,13 +63,13 @@ const CartPage = () => {
                         {
                             data?.items && data?.items.map(({productId : { name , price}, size, qty, _id})=> <li key={_id} className="mt-2 flex gap-2 items-center justify-between">
                                 <div className="text-zinc-600">{`${name} (${size})`}</div>
-                                <div>{localString(price * qty)}</div>
+                                <div>{(price * qty).toLocaleString()}</div>
                             </li>)
                         }
                     </ul>
                     <div className="bg-sub flex px-6 py-3 justify-between font-bold">
                         <div>합계</div>
-                        {data?.items && <div> {localString(data.items.reduce((acc, crr) => acc + (crr.productId.price * crr.qty), 0))} 원</div>}  
+                        {data?.items && <div> {(data.items.reduce((acc, crr) => acc + (crr.productId.price * crr.qty), 0)).toLocaleString()} 원</div>}  
                     </div>
                 </div>
                 <div>
