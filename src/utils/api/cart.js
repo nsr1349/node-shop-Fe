@@ -15,7 +15,6 @@ export const editCartApi = async ({items}) => {
 }
 
 export const deleteCartApi = async (id) => {
-    console.log(id)
     const { data } = await api.delete(`/cart/${id}`)
     return data.cart
 }

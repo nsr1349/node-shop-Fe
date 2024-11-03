@@ -21,7 +21,6 @@ const MainLayout = () => {
     }
 
     return <>
-        { user && <div className="text-center bg-green-800 py-2">{`${user.name}님으로 로그인 되었습니다`}</div>}
         <header className="flex justify-between p-4">
             <Link to='/'>
                 <img src="/logo.png" alt="" className="w-10 h-10"/>

@@ -33,14 +33,14 @@ const DetailPage = () => {
             </div>
             <div className="p-4 flex flex-col flex-grow">
                 <h1 className="text-2xl">{name}</h1>
-                <h4 className="text-3xl font-bold mt-2 mb-10">₩ {price}</h4>
+                <h4 className="text-3xl font-bold mt-2 mb-10">₩ {(price).toLocaleString()}</h4>
                 <p className="flex-grow">{description}</p>
-                <div htmlFor="" className="mt-10 flex-grow">사이즈</div>
+                <div htmlFor="" className="mt-1 flex-grow">사이즈</div>
                 <ul className="flex gap-2 mb-4">
                     {
                         size && size.map((a)=><li key={a}>
                             <button 
-                                className={`btn px-8 ${selectSize === a && 'border-white bg-slate-100 text-main font-bold'} ${stock[a] === 0 && 'btn-disable'}`} 
+                                className={`btn px-8 py-1 ${selectSize === a && 'border-white bg-slate-100 text-main font-bold'} ${stock[a] === 0 && 'btn-disable'}`} 
                                 disabled={stock[a] === 0}
                                 onClick={()=> setSelectSize(a)}
                             >

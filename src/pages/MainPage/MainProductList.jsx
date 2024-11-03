@@ -21,7 +21,7 @@ const MainProductList = () => {
                     <img src={image} alt="" className="h-[340px] object-cover"/>
                     <div className="py-3 px-2">
                         <div className="font-bold mb-2">{name}</div>
-                        <div>{price} 원</div>
+                        <div className="font-bold">{(price).toLocaleString()} 원</div>
                     </div>
                 </Link>
             </li> )
