@@ -15,6 +15,10 @@ export default {
         'point' : '#A8A3F7',
       }
     },
+    screens: {
+      sm: { max: '700px' },
+      md: { max: '1000px' },
+    },
   },
   plugins: [],
 }
