@@ -23,43 +23,48 @@ const CartPage = () => {
     }
 
     return <>
-        <div className="flex gap-10 max-w-[1000px] mx-auto mt-10">
+        <div className="flex md:flex-col gap-10 max-w-[1000px] mx-auto mt-5 px-4 pb-10">
             <div className="w-full text-left">
                 <h1 className="text-2xl font-bold">장바구니</h1>
                     {
-                        data?.items && data?.items.length !== 0 ? data?.items.map(({productId : { name , price, image}, size, qty, _id})=> <div key={_id} className="border-b-2 border-sub flex items-center">
-                            <div className="flex my-6 flex-grow">
-                                <img className="object-cover h-32 w-24 mr-6" src={image} alt="" />
-                                <div className="content-center ">
-                                    <h6>{name}</h6>
-                                    <p className="text-g mt-1">SIZE : {size}</p>
+                        data?.items && data?.items.length !== 0 ? data?.items.map(({productId : { name , price, image}, size, qty, _id})=> <div key={_id} className="border-b-2 border-sub flex py-6 relative sm:items-start">
+                            <img className="object-cover h-32 w-24 mr-6" src={image} alt="" />
+                            <div className="flex w-full ">
+                                <div className="flex flex-grow items-center sm:flex-col sm:items-start">
+                                    <div className="content-center flex-grow">
+                                        <h6>{name}</h6>
+                                        <p className="text-g mt-1">SIZE : {size}</p>
+                                    </div>
+                                    <div className="sm:mt-2">{(localString(price))} 원</div>
+                                </div>
+                                <div className="flex sm:absolute bottom-6 right-0 items-center">
+                                    <div className="px-4">
+                                        <select type="text" className="bg-transparent btn p-2 rounded-md" defaultValue={qty} onChange={(e)=>handleEditCart(e,_id)}>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                        </select>
+                                    </div>
+                                    <div >
+                                        <button disabled={deletePending} className="btn p-2 rounded-full" onClick={()=> deleteMutate(_id)}>
+                                            <MdClose  size={20}/>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div>{(localString(price))} 원</div>
-                            <div className="px-4">
-                                <select type="text" className="bg-transparent btn p-2 rounded-md" defaultValue={qty} onChange={(e)=>handleEditCart(e,_id)}>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                </select>
-                            </div>
-                            <div >
-                                <button disabled={deletePending} className="btn p-2 rounded-full" onClick={()=> deleteMutate(_id)}>
-                                    <MdClose  size={20}/>
-                                </button>
-                            </div>
+                                
                         </div> ) : <div className="w-full text-center py-4 ">
                             장바구니가 비어있습니다
                         </div>
                     }
             </div>
-            <OrderSummary items={data?.items} ispending={editPending || deletePending} event={()=>Navigate('/order')}/>
+            <OrderSummary items={data?.items} ispending={editPending || deletePending} event={()=>Navigate('/order')} className="md:w-full"/>
         </div>
     </>
 }

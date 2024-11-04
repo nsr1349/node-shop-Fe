@@ -39,7 +39,7 @@ const OrderPage = () => {
     }
 
     return <>
-        <form className="flex gap-10 max-w-[1000px] mx-auto mt-4 px-4 md:flex-col pb-20" onSubmit={handleSubmit(handleOrder)}>
+        <form className="flex gap-10 max-w-[1000px] mx-auto mt-4 px-4 md:flex-col pb-10" onSubmit={handleSubmit(handleOrder)}>
             <div className="w-full">
                 <h1 className="text-2xl font-bold mb-6">결제하기</h1>
                 <div className="text-lg font-bold mb-4 my-10 text-g">인적사항</div>
