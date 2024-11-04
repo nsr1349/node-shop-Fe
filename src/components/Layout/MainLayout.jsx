@@ -1,5 +1,5 @@
 import { FaUserAlt, FaShoppingBag, FaBox } from "react-icons/fa";
-import { RiLogoutBoxFill } from "react-icons/ri";
+import { RiLogoutBoxFill, RiSettings4Fill  } from "react-icons/ri";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { deleteToken } from "../../utils/fn/tokenManager";
@@ -30,35 +30,35 @@ const MainLayout = () => {
                     user ? 
                     <li>
                         <div className="flex items-center gap-2 btn px-4 rounded-md py-2" onClick={()=>handleLogout()}>
-                            <RiLogoutBoxFill/>
-                            <h4>로그아웃</h4>
+                            <RiLogoutBoxFill size={20}/>
+                            <h4 className="sm:hidden">로그아웃</h4>
                         </div>
                     </li> : 
                     <li>
                         <Link to='/login' className="flex items-center gap-2 btn px-4 py-2 rounded-md ">
-                            <FaUserAlt/>
-                            <h4>로그인</h4>
+                            <FaUserAlt size={20}/>
+                            <h4 className="sm:hidden">로그인</h4>
                         </Link>
                     </li> 
                 }
                 <li>
                     <Link to='/cart' className="flex items-center gap-2 btn px-4 py-2 rounded-md">
-                        <FaShoppingBag/>
-                        <h4>쇼핑백 {CartData && `(${CartData?.items.length})`}</h4>
+                        <FaShoppingBag size={20}/>
+                        <h4 className="sm:hidden">쇼핑백 {CartData && `(${CartData?.items.length})`}</h4>
                     </Link>
                 </li> 
                 <li>
                     <Link to='/' className="flex items-center gap-2 btn px-4 py-2 rounded-md">
-                        <FaBox/>
-                        <h4>내 주문</h4>
+                        <FaBox size={20}/>
+                        <h4 className="sm:hidden">내 주문</h4>
                     </Link>
                 </li> 
                 {
                     user?.level === 'admin' && 
                     <li>
                         <Link to='/admin' className="flex items-center gap-2 btn px-4 py-2 rounded-md">
-                            <FaBox/>
-                            <h4>어드민</h4>
+                            <RiSettings4Fill size={20}/>
+                            <h4 className="sm:hidden">어드민</h4>
                         </Link>
                     </li> 
                 }

@@ -1,9 +1,9 @@
 import { MdClose } from "react-icons/md";
-import PendingButton from "../../components/PendingButton/PendingButton";
 import { useGetCart, useEditCart, useDeleteCart } from "../../utils/query/cart";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { localString } from "../../utils/fn/LocalString";
+import OrderSummary from "../../components/OrderSummary/OrderSummary";
 
 const CartPage = () => {
     const { data, isLoading } = useGetCart()
@@ -16,22 +16,18 @@ const CartPage = () => {
 
     if (isLoading) return  <>로딩중</>
 
-    const handleEditCart = async (e, id) => {
+    const handleEditCart = (e, id) => {
         const newItems = data?.items.map(item => item._id === id ? { ...item, qty: e.target.value } : item)
         editMutate({items : newItems})
         queryClient.setQueryData(['cart'], {...data , items : newItems } )
     }
-    
-    const handleDeleteCart = async (id) => deleteMutate(id)
-
-
 
     return <>
         <div className="flex gap-10 max-w-[1000px] mx-auto mt-10">
-        <div className="w-full text-left">
-            <h1 className="text-2xl font-bold">장바구니</h1>
+            <div className="w-full text-left">
+                <h1 className="text-2xl font-bold">장바구니</h1>
                     {
-                        data?.items && data?.items.map(({productId : { name , price, image}, size, qty, _id})=> <div key={_id} className="border-b-2 border-sub flex items-center">
+                        data?.items && data?.items.length !== 0 ? data?.items.map(({productId : { name , price, image}, size, qty, _id})=> <div key={_id} className="border-b-2 border-sub flex items-center">
                             <div className="flex my-6 flex-grow">
                                 <img className="object-cover h-32 w-24 mr-6" src={image} alt="" />
                                 <div className="content-center ">
@@ -54,33 +50,16 @@ const CartPage = () => {
                                 </select>
                             </div>
                             <div >
-                                <button disabled={deletePending} className="btn p-2 rounded-full" onClick={()=> handleDeleteCart(_id)}>
+                                <button disabled={deletePending} className="btn p-2 rounded-full" onClick={()=> deleteMutate(_id)}>
                                     <MdClose  size={20}/>
                                 </button>
                             </div>
-                        </div>)
+                        </div> ) : <div className="w-full text-center py-4 ">
+                            장바구니가 비어있습니다
+                        </div>
                     }
             </div>
-            <div className="w-[500px]">
-                <div className="border-2 border-sub mb-2">
-                    <div className="px-6 py-4">Order Summary</div>
-                    <ul className="px-6 py-4 border-y-2 border-sub min-h-32">
-                        {
-                            data?.items && data?.items.map(({productId : { name , price}, size, qty, _id})=> <li key={_id} className="mt-2 flex gap-2 items-center justify-between">
-                                <div className="text-zinc-600">{`${name} (${size})`}</div>
-                                <div>{localString(price * qty)}</div>
-                            </li>)
-                        }
-                    </ul>
-                    <div className="bg-sub flex px-6 py-3 justify-between font-bold">
-                        <div>합계</div>
-                        {data?.items && <div> {localString(data.items.reduce((acc, crr) => acc + (crr.productId.price * crr.qty), 0))} 원</div>}  
-                    </div>
-                </div>
-                <div>
-                    <PendingButton isPending={editPending || deletePending} className="w-full py-3 font-bold text-lg ">결제하기</PendingButton>
-                </div>
-            </div>
+            <OrderSummary items={data?.items} ispending={editPending || deletePending} event={()=>Navigate('/order')}/>
         </div>
     </>
 }

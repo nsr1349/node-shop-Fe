@@ -16,6 +16,7 @@ import { ToastContainer } from 'react-toastify';
 import MainLayout from './components/Layout/MainLayout'
 import DetailPage from './pages/DetailPage/DetailPage'
 import { useGetUser } from './utils/query/user'
+import OrderPage from './pages/OrderPage/OrderPage'
 
 function App() {
     const { data } = useGetUser()
@@ -28,6 +29,7 @@ function App() {
                         <Route path="/" element={<MainPage/>}/>
                         <Route path="/detail/:id" element={<DetailPage/>}/>
                         <Route path="/cart" element={<CartPage />}/>
+                        <Route path="/order" element={<OrderPage/>}/>
                         <Route path="/signUp" element={<SignUpPage />}/>
                         <Route path="/login" element={<LoginPage />}/>
                     </Route>
