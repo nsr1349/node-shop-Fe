@@ -6,9 +6,11 @@ import Cards from 'react-credit-cards-2';
 import { useState } from "react";
 import 'react-credit-cards-2/dist/es/styles-compiled.css'
 import { cc_expires_format } from "../../utils/api/numbers";
+import { useCreateOrder } from "../../utils/query/order";
 
 const OrderPage = () => {
     const { data, isLoading } = useGetCart()
+    const { mutate } = useCreateOrder()
     const { register, handleSubmit } = useForm();
     const Navigate = useNavigate()
     const [state, setState] = useState({
@@ -34,8 +36,13 @@ const OrderPage = () => {
     const handleInputFocus = (evt) => 
         setState((prev) => ({ ...prev, focus: evt.target.name }))
 
-    const handleOrder = (formData) => {
-        console.log(formData)
+    const handleOrder = ({contact , shipTo}) => {
+        mutate({
+            shipTo , 
+            contact, 
+            totalPrice : data?.items.reduce((acc, crr) => acc + (crr.productId.price * crr.qty), 0), 
+            items : data?.items, 
+        })
     }
 
     return <>
@@ -48,8 +55,8 @@ const OrderPage = () => {
                         <input type="text" placeholder="성" className="w-full" required {...register('firstname')}/>
                         <input type="text" placeholder="이름" className="w-full" required {...register('secondname')}/>
                     </div>
-                    <input type="text" placeholder="연락처" />
-                    <input type="text" placeholder="주소" />
+                    <input type="text" placeholder="연락처" {...register('contact')}/>
+                    <input type="text" placeholder="주소" {...register('shipTo')}/>
                     <div className="flex gap-4">
                         <input type="text" placeholder="city" className="w-full" required />
                         <input type="text" placeholder="zip" className="w-full" required/>
