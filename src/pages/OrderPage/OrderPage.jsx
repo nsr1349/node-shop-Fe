@@ -20,11 +20,10 @@ const OrderPage = () => {
         name: '',
         focus: '',
     });
-    
+
     if (!isLoading && data?.items.length === 0) return Navigate('/cart')
         
     const handleInputChange = ({ target : { name, value } }) => {
-        console.log(name)
         if (name === 'expiry'){
             console.log(cc_expires_format(value))
             setState((prev) => ({ ...prev, [name]: cc_expires_format(value) }))
@@ -37,11 +36,13 @@ const OrderPage = () => {
         setState((prev) => ({ ...prev, focus: evt.target.name }))
 
     const handleOrder = ({contact , shipTo}) => {
+        const newItems = data?.items.map( item => { return {...item, price : item.productId.price}})
+
         mutate({
             shipTo , 
             contact, 
             totalPrice : data?.items.reduce((acc, crr) => acc + (crr.productId.price * crr.qty), 0), 
-            items : data?.items, 
+            items : newItems, 
         })
     }
 

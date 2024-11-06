@@ -45,7 +45,7 @@ const MainLayout = () => {
                     <Link to='/cart' className="flex items-center gap-2 btn px-4 py-2 rounded-md relative">
                         <FaShoppingBag size={20}/>
                         <h4 className="sm:hidden">쇼핑백 </h4>
-                        {CartData?.items.length > 0 && <div className="absolute top-[-8px] right-[-12px] bg-red-800 rounded-full px-[.6em] pb-[.2em] center">{CartData && `${CartData?.items.length}`}</div>}
+                        {CartData?.items?.length > 0 && <div className="absolute top-[-8px] right-[-12px] bg-red-800 rounded-full px-[.6em] pb-[.2em] center">{CartData && `${CartData?.items.length}`}</div>}
                     </Link>
                 </li> 
                 <li>
