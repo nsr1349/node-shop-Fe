@@ -1,11 +1,11 @@
 import { MdSearch } from "react-icons/md";
 import { useNavigate } from "react-router-dom"; 
 
-const SearchBar = () => {
+const SearchBar = (to = '') => {
     const Navigate = useNavigate()
     const handleSearch = () => {
         const q = document.querySelector('#search').value
-        Navigate('', { state : { q }})
+        Navigate(to, { state : { q }})
     }
     return <div className="relative">
         <input id='search' type="text" placeholder="검색어를 입력하세요" className="w-full" onKeyDown={({key})=> key === 'Enter' && handleSearch() }/>

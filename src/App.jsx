@@ -15,11 +15,15 @@ import './App.css'
 import { ToastContainer } from 'react-toastify';
 import MainLayout from './components/Layout/MainLayout'
 import DetailPage from './pages/DetailPage/DetailPage'
-import { useGetUser } from './utils/query/user'
 import OrderPage from './pages/OrderPage/OrderPage'
+import OrderSuccessPage from './pages/OrderSuccessPage/OrderSuccessPage'
+import MyOrderPage from './pages/MyOrderpage/MyOrderPage'
+import AdminOrderManage from './pages/AdminOrderPage/AdminOrderManage'
+// import { useGetUser } from './utils/query/user'
 
 function App() {
-    const { data } = useGetUser()
+    // const { data } = useGetUser()
+    
     return (
         <>
             <BrowserRouter>
@@ -30,6 +34,8 @@ function App() {
                         <Route path="/detail/:id" element={<DetailPage/>}/>
                         <Route path="/cart" element={<CartPage />}/>
                         <Route path="/order" element={<OrderPage/>}/>
+                        <Route path="/order/success" element={<OrderSuccessPage/>}/>
+                        <Route path="/my-order" element={<MyOrderPage/>}/>
                         <Route path="/signUp" element={<SignUpPage />}/>
                         <Route path="/login" element={<LoginPage />}/>
                     </Route>
@@ -39,7 +45,9 @@ function App() {
                             <Route path="manage" element={<AdminProductManagePage/>}/>
                             <Route path="delete" element={<AdminProductDeletePage/>}/>
                         </Route>
-                        <Route path="order" element={<AdminOrderPage/>}/> 
+                        <Route path="order" element={<AdminOrderPage/>}>
+                            <Route path="manage" element={<AdminOrderManage/>}/>
+                        </Route>
                     </Route>
                     <Route path="*" element={<NotFound />}/>
                 </Routes>

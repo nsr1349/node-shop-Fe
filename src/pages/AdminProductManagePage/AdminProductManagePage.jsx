@@ -61,7 +61,7 @@ const AdminProductManagePage = () => {
     return <div className="fixed top-0 left-0 w-full h-full grid place-items-center z-40">
         <Link to={-1} className="w-full h-full bg-[rgba(0,0,0,0.5)]"/>
         <div className='fixed bg-main scale-up transition-all max-h-[95%] overflow-y-scroll none-scrollbar' >
-            <form className="" onSubmit={handleSubmit(submit)}>
+            <form onSubmit={handleSubmit(submit)}>
                 <h2 className="p-6 py-4 border-b-2 border-sub font-bold text-lg">상품 추가</h2>
                 <div className="p-6 py-4 text-sm">
                     <div className="flex gap-4">

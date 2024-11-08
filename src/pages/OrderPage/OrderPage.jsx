@@ -24,11 +24,9 @@ const OrderPage = () => {
     if (!isLoading && data?.items.length === 0) return Navigate('/cart')
         
     const handleInputChange = ({ target : { name, value } }) => {
-        if (name === 'expiry'){
-            console.log(cc_expires_format(value))
-            setState((prev) => ({ ...prev, [name]: cc_expires_format(value) }))
-            return
-        }
+        if (name === 'expiry')
+            return setState((prev) => ({ ...prev, [name]: cc_expires_format(value) }))
+        
         setState((prev) => ({ ...prev, [name]: value }))
     }
     

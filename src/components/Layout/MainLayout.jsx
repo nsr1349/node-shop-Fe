@@ -49,7 +49,7 @@ const MainLayout = () => {
                     </Link>
                 </li> 
                 <li>
-                    <Link to='/' className="flex items-center gap-2 btn px-4 py-2 rounded-md">
+                    <Link to='/my-order' className="flex items-center gap-2 btn px-4 py-2 rounded-md">
                         <FaBox size={20}/>
                         <h4 className="sm:hidden">내 주문</h4>
                     </Link>

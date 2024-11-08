@@ -2,8 +2,7 @@ import PendingButton from "../PendingButton/PendingButton";
 import { localString } from "../../utils/fn/LocalString";
 
 const OrderSummary = ({items, ispending = false, event, className=''}) => {
-    console.log(items)
-    
+
     return <>
     { items?.length !== 0 && <div className={`w-[500px] ${className}`}>
         <div className="border-2 border-sub mb-2">
