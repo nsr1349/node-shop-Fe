@@ -10,7 +10,7 @@ const AdminOrderList = () => {
     const { orders, totalPageNum } = data || {}
 
     return <>
-        <div className="w-full max-w-4xl mx-auto p-4">
+        <div className="w-full max-w-4xl mx-auto p-0">
             <table className="min-w-full text-left">
                 <thead className="text-xs uppercase text-g border-b border-sub">
                     <tr>
@@ -23,9 +23,9 @@ const AdminOrderList = () => {
                 </thead>
                 <tbody>
                     {
-                        orders?.map(({orderNum, createdAt, items, totalPrice , status, _id})=> <tr key={orderNum} className="text-sm" onClick={()=> navi('manage', { state : { _id } })}>
+                        orders?.map(({orderNum, createdAt, items, totalPrice , status, _id})=> <tr key={orderNum} className="text-xs" onClick={()=> navi('manage', { state : { _id } })}>
                                 <td className="py-4 ">{orderNum}</td>
-                                <td>{createdAt}</td>
+                                <td>{createdAt.slice(2,10)}</td>
                                 <td>{items[0].productId.name} { items.length > 1 && `외 ${items.length - 1}개` }</td>
                                 <td>{totalPrice}</td>
                                 <td>{status}</td>

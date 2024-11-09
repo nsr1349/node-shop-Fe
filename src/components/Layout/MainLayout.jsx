@@ -1,16 +1,15 @@
-import { FaUserAlt, FaShoppingBag, FaBox } from "react-icons/fa";
+import { FaUserAlt, FaBox } from "react-icons/fa";
 import { RiLogoutBoxFill, RiSettings4Fill  } from "react-icons/ri";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { deleteToken } from "../../utils/fn/tokenManager";
 import { useGetUser } from "../../utils/query/user";
-import { useGetCart } from "../../utils/query/cart";
+import CartLink from './components/CartLink'
 
 const MainLayout = () => {
     const queryClient = useQueryClient();
-    const { data : CartData } = useGetCart()
-    const { data : userData } = useGetUser(); 
-    const { user } = userData || {}
+    const { data  } = useGetUser(); 
+    const { user } = data || {}
     const navigate = useNavigate()
 
     const handleLogout = () => {
@@ -28,12 +27,21 @@ const MainLayout = () => {
             <ul className="flex gap-2 text-sm">
                 {
                     user ? 
-                    <li>
-                        <div className="flex items-center gap-2 btn px-4 rounded-md py-2" onClick={()=>handleLogout()}>
-                            <RiLogoutBoxFill size={20}/>
-                            <h4 className="sm:hidden">로그아웃</h4>
-                        </div>
-                    </li> : 
+                    <>
+                        <li>
+                            <div className="flex items-center gap-2 btn px-4 rounded-md py-2" onClick={()=>handleLogout()}>
+                                <RiLogoutBoxFill size={20}/>
+                                <h4 className="sm:hidden">로그아웃</h4>
+                            </div>
+                        </li> 
+                        <CartLink/>
+                        <li>
+                            <Link to='/my-order' className="flex items-center gap-2 btn px-4 py-2 rounded-md">
+                                <FaBox size={20}/>
+                                <h4 className="sm:hidden">내 주문</h4>
+                            </Link>
+                        </li>
+                    </> : 
                     <li>
                         <Link to='/login' className="flex items-center gap-2 btn px-4 py-2 rounded-md ">
                             <FaUserAlt size={20}/>
@@ -41,19 +49,6 @@ const MainLayout = () => {
                         </Link>
                     </li> 
                 }
-                <li>
-                    <Link to='/cart' className="flex items-center gap-2 btn px-4 py-2 rounded-md relative">
-                        <FaShoppingBag size={20}/>
-                        <h4 className="sm:hidden">쇼핑백 </h4>
-                        {CartData?.items?.length > 0 && <div className="absolute top-[-8px] right-[-12px] bg-red-800 rounded-full px-[.6em] pb-[.2em] center">{CartData && `${CartData?.items.length}`}</div>}
-                    </Link>
-                </li> 
-                <li>
-                    <Link to='/my-order' className="flex items-center gap-2 btn px-4 py-2 rounded-md">
-                        <FaBox size={20}/>
-                        <h4 className="sm:hidden">내 주문</h4>
-                    </Link>
-                </li> 
                 {
                     user?.level === 'admin' && 
                     <li>

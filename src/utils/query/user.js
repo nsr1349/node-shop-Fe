@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
-import { LoginApi, createUserApi, getUserApi } from '../api/userApi'
+import { LoginApi, createUserApi, getUserApi, LoginGoogleApi } from '../api/userApi'
 import { setToken } from '../fn/tokenManager';
 
 export const useLogin = () => {
@@ -21,6 +21,26 @@ export const useLogin = () => {
     });
 
     return loginMutation;
+};
+
+export const useGoogleLogin = () => {
+    const navigate = useNavigate()
+    const queryClient = useQueryClient()
+
+    const loginGoogleMutation = useMutation({
+        mutationFn: LoginGoogleApi,
+        onSuccess: ({data}) => {
+            setToken(data.token)
+            navigate('/')
+            queryClient.setQueryData(['user'], { user: data.user })
+            queryClient.invalidateQueries(['cart'])
+        },
+        onError: (error) => {
+            console.error('Login error:', error);
+        }
+    });
+
+    return loginGoogleMutation;
 };
 
 export const useSignUp = () => {

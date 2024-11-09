@@ -5,6 +5,7 @@ export const addCartApi = async ({ productId , size, qty }) => {
 }
 
 export const getCartApi = async () => {
+    if (!sessionStorage.getItem('token')) return
     const { data } = await api.get(`/cart`)
     return data.cart
 }

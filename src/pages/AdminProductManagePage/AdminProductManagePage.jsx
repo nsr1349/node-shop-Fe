@@ -60,7 +60,7 @@ const AdminProductManagePage = () => {
 
     return <div className="fixed top-0 left-0 w-full h-full grid place-items-center z-40">
         <Link to={-1} className="w-full h-full bg-[rgba(0,0,0,0.5)]"/>
-        <div className='fixed bg-main scale-up transition-all max-h-[95%] overflow-y-scroll none-scrollbar' >
+        <div className='fixed bg-main scale-up transition-all max-h-[95%] max-w-[95%] overflow-y-scroll none-scrollbar' >
             <form onSubmit={handleSubmit(submit)}>
                 <h2 className="p-6 py-4 border-b-2 border-sub font-bold text-lg">상품 추가</h2>
                 <div className="p-6 py-4 text-sm">
@@ -105,7 +105,7 @@ const AdminProductManagePage = () => {
                     <div className="my-2 mt-6">상품재고</div>
                     {
                         stocks.map(({ size, qty } , i)=> <div key={i} className="flex gap-4 mt-1">
-                            <select className="bg-transparent border-2 border-sub p-2 text-xs" defaultValue={size} onChange={(e)=> handleSizeChange(e, i)}>
+                            <select className="bg-transparent border-2 border-sub p-2 text-xs sm:w-20" defaultValue={size} onChange={(e)=> handleSizeChange(e, i)}>
                                 <option value={null}>옵션을 선택해주세요</option>
                                 { stockSizeOptions.map((size)=><option 
                                     key={size} 
@@ -115,7 +115,7 @@ const AdminProductManagePage = () => {
                                     {size}
                                 </option>) }
                             </select>
-                            <input type="number" defaultValue={qty} onChange={(e)=> handleStockValue(e ,i)}/>
+                            <input type="number" defaultValue={qty} onChange={(e)=> handleStockValue(e ,i)} className="sm:w-32"/>
                             <div className="bg-sub hover:bg-red-900 transition-all px-3 center" onClick={()=> stocks.length > 1 && setStocks(stocks.filter((_, index) => index !== i))}>
                                 <MdDelete size={20}/>
                             </div>

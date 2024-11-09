@@ -18,7 +18,7 @@ class CloudinaryUploadWidget extends Component {
 
     render() {
         return (
-            <div id="upload_widget" className="h-[270px] w-48 border-2 border-sub center text-g relative hover:border-g hover:text-white transition-all">
+            <div id="upload_widget" className="h-[270px] sm:h-[180px] sm:w-28 w-48 border-2 border-sub center text-g relative hover:border-g hover:text-white transition-all">
                 <MdAdd size={60}/>
                 {
                     this.props.image &&                        
